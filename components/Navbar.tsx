@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 
 const NAV_LINKS = [
@@ -39,10 +40,14 @@ export function Navbar() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group" aria-label="Wed Filmer Home">
-              <div className="relative">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent via-accent-light to-accent-dark flex items-center justify-center shadow-lg shadow-accent/20">
-                  <span className="text-primary font-heading font-bold text-xl">WF</span>
-                </div>
+              <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-lg shadow-accent/20 ring-2 ring-accent/20 group-hover:ring-accent/40 transition-all duration-300">
+                <Image
+                  src="/logo.png"
+                  alt="Wed Filmer Logo"
+                  fill
+                  className="object-cover"
+                  priority
+                />
                 <div className="absolute -inset-1 rounded-xl bg-accent/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="hidden sm:block">
@@ -109,9 +114,19 @@ export function Navbar() {
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between p-6 border-b border-glass-border">
-                  <span className="text-text font-heading text-xl font-bold">
-                    Wed<span className="text-accent">Filmer</span>
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <div className="relative w-10 h-10 rounded-lg overflow-hidden shadow-lg">
+                      <Image
+                        src="/logo.png"
+                        alt="Wed Filmer Logo"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <span className="text-text font-heading text-xl font-bold">
+                      Wed<span className="text-accent">Filmer</span>
+                    </span>
+                  </div>
                   <button
                     onClick={closeMenu}
                     className="p-2 text-muted hover:text-text transition-colors"

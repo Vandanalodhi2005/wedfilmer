@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { NAV_LINKS, SERVICES, SOCIAL_LINKS, CONTACT_INFO } from "@/lib/constants";
 import { Share2, Heart } from "lucide-react";
 
@@ -28,8 +29,13 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="inline-flex items-center gap-3 mb-4 group">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent via-accent-light to-accent-dark flex items-center justify-center shadow-lg shadow-accent/10">
-                <span className="text-primary font-heading font-bold text-xl">WF</span>
+              <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-lg shadow-accent/10 ring-2 ring-accent/10 group-hover:ring-accent/30 transition-all duration-300">
+                <Image
+                  src="/logo.png"
+                  alt="Wed Filmer Logo"
+                  fill
+                  className="object-cover"
+                />
               </div>
               <div>
                 <span className="text-text font-heading text-2xl font-bold">
