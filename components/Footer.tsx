@@ -29,20 +29,20 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="inline-flex items-center gap-3 mb-4 group">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-lg shadow-accent/10 ring-2 ring-accent/10 group-hover:ring-accent/30 transition-all duration-300">
+              <div className="relative w-44 h-14 group-hover:ring-black/20 transition-all duration-300">
                 <Image
-                  src="/logo.png"
+                  src="/logo-white.png"
                   alt="Wed Filmer Logo"
                   fill
                   className="object-cover"
                 />
               </div>
-              <div>
+              {/* <div>
                 <span className="text-text font-heading text-2xl font-bold">
                   Wed<span className="text-accent">Filmer</span>
                 </span>
                 <p className="text-[10px] text-muted uppercase tracking-[0.15em] -mt-0.5">Premium Photography</p>
-              </div>
+              </div> */}
             </Link>
             <p className="text-muted text-sm leading-relaxed mb-6">
               Capturing love stories that last forever. Professional wedding and event photography

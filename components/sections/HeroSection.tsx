@@ -19,26 +19,26 @@ export function HeroSection() {
     >
       {/* Video Background Effect with Overlay */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary/95 to-secondary" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(212,175,55,0.15)_0%,_transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(212,175,55,0.08)_0%,_transparent_40%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-gray-100" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(0,0,0,0.03)_0%,_transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(0,0,0,0.02)_0%,_transparent_40%)]" />
         
         {/* Animated gradient orbs */}
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
+            opacity: [0.03, 0.06, 0.03],
           }}
           transition={{ duration: 8, repeat: Infinity }}
-          className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl"
+          className="absolute top-1/4 right-1/4 w-96 h-96 bg-black/5 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
             scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.4, 0.2],
+            opacity: [0.02, 0.04, 0.02],
           }}
           transition={{ duration: 10, repeat: Infinity }}
-          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
+          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-black/3 rounded-full blur-3xl"
         />
       </div>
 
@@ -53,13 +53,13 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full glass mb-8 border border-accent/20"
+            className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-black/5 border border-black/10 mb-8"
           >
             <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-accent"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-black"></span>
             </span>
-            <span className="text-sm text-text font-medium tracking-wide">
+            <span className="text-sm text-gray-700 font-medium tracking-wide">
               Capturing Love Stories That Last Forever
             </span>
           </motion.div>
@@ -69,9 +69,9 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[1.05] mb-8"
+            className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[1.05] mb-8 text-black"
           >
-            <span className="block text-text mb-2">Your Story,</span>
+            <span className="block mb-2">Your Story,</span>
             <span className="block text-shimmer">Beautifully Told</span>
           </motion.h1>
 
@@ -80,7 +80,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.7 }}
-            className="text-xl sm:text-2xl text-muted max-w-3xl mx-auto mb-12 leading-relaxed font-light"
+            className="text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed font-light"
           >
             Premium wedding & event photography that transforms fleeting moments
             into timeless masterpieces
@@ -94,16 +94,16 @@ export function HeroSection() {
             className="flex flex-wrap items-center justify-center gap-8 mb-12 text-sm"
           >
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent"></div>
-              <span className="text-muted">500+ Events Captured</span>
+              <div className="w-2 h-2 rounded-full bg-black"></div>
+              <span className="text-gray-600">500+ Events Captured</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent"></div>
-              <span className="text-muted">8+ Years Experience</span>
+              <div className="w-2 h-2 rounded-full bg-black"></div>
+              <span className="text-gray-600">8+ Years Experience</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent"></div>
-              <span className="text-muted">4.9★ Client Rating</span>
+              <div className="w-2 h-2 rounded-full bg-black"></div>
+              <span className="text-gray-600">4.9★ Client Rating</span>
             </div>
           </motion.div>
 
@@ -116,7 +116,7 @@ export function HeroSection() {
           >
             <Link
               href="/contact"
-              className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-accent text-primary font-semibold text-lg overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] hover:scale-105"
+              className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-black text-white font-semibold text-lg overflow-hidden transition-all duration-500 hover:shadow-xl hover:scale-105"
             >
               <span className="relative z-10 flex items-center gap-3">
                 <Calendar size={20} />
@@ -126,15 +126,14 @@ export function HeroSection() {
                   className="group-hover:translate-x-1 transition-transform"
                 />
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-accent-light to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </Link>
 
             <Link
               href="/portfolio"
-              className="group inline-flex items-center gap-3 px-10 py-5 rounded-full border-2 border-text/20 text-text font-semibold text-lg hover:border-accent/50 hover:bg-accent/5 transition-all duration-300 backdrop-blur-sm"
+              className="group inline-flex items-center gap-3 px-10 py-5 rounded-full border-2 border-black/20 text-black font-semibold text-lg hover:border-black hover:bg-black hover:text-white transition-all duration-300"
             >
-              <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                <Play size={16} className="text-accent ml-0.5" fill="currentColor" />
+              <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center group-hover:bg-white/20">
+                <Play size={16} className="ml-0.5" fill="currentColor" />
               </div>
               View Our Work
             </Link>
