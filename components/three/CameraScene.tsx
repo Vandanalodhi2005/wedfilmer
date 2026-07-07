@@ -37,7 +37,7 @@ function CameraModel() {
   const bodyMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color("#1a1a2e"),
+        color: new THREE.Color("#E8E8E8"),
         metalness: 0.4,
         roughness: 0.5,
       }),
@@ -47,7 +47,7 @@ function CameraModel() {
   const lensMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color("#0d0d1a"),
+        color: new THREE.Color("#D0D0D0"),
         metalness: 0.7,
         roughness: 0.2,
       }),
@@ -57,7 +57,7 @@ function CameraModel() {
   const glassMaterial = useMemo(
     () =>
       new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color("#1a2a4a"),
+        color: new THREE.Color("#E8F4F8"),
         metalness: 0.0,
         roughness: 0.0,
         transmission: 0.6,
@@ -145,9 +145,9 @@ function Particles() {
   const colors = useMemo(() => {
     const arr = new Float32Array(count * 3);
     const gold = new THREE.Color("#D4AF37");
-    const white = new THREE.Color("#F8FAFC");
+    const lightGray = new THREE.Color("#F0F0F0");
     for (let i = 0; i < count; i++) {
-      const c = Math.random() > 0.3 ? gold : white;
+      const c = Math.random() > 0.3 ? gold : lightGray;
       arr[i * 3] = c.r;
       arr[i * 3 + 1] = c.g;
       arr[i * 3 + 2] = c.b;
@@ -221,15 +221,15 @@ export function CameraScene() {
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
       >
-        <ambientLight intensity={0.3} />
-        <pointLight position={[5, 5, 5]} intensity={0.8} color="#D4AF37" />
-        <pointLight position={[-5, -3, 3]} intensity={0.4} color="#F8FAFC" />
+        <ambientLight intensity={0.7} />
+        <pointLight position={[5, 5, 5]} intensity={1.2} color="#F5E6D3" />
+        <pointLight position={[-5, -3, 3]} intensity={0.6} color="#FFFFFF" />
         <spotLight
           position={[0, 10, 5]}
           angle={0.3}
           penumbra={1}
-          intensity={0.5}
-          color="#D4AF37"
+          intensity={0.8}
+          color="#F5E6D3"
         />
 
         <CameraModel />
@@ -239,7 +239,7 @@ export function CameraScene() {
         <FloatingLens position={[4, -2.5, -3]} />
         <FloatingLens position={[-2, -3, -1.5]} />
 
-        <Environment preset="night" />
+        <Environment preset="sunset" />
       </Canvas>
     </div>
   );

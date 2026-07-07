@@ -7,18 +7,18 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Camera, Award, Heart, Aperture } from "lucide-react";
 
 const milestones = [
-  { year: "2016", title: "Founded", desc: "Wed Filmer was born from a passion for storytelling." },
-  { year: "2018", title: "100th Wedding", desc: "Reached our first major milestone in wedding coverage." },
-  { year: "2020", title: "Expanded Team", desc: "Grew to a full team of photographers and videographers." },
-  { year: "2023", title: "500+ Events", desc: "Celebrating half a thousand events beautifully captured." },
-  { year: "2024", title: "Award Winning", desc: "Recognized among the top wedding photographers nationally." },
+  { year: "2015", title: "Founded", desc: "We started our journey capturing timeless moments." },
+  { year: "2018", title: "Services Expanded", desc: "Specializing in videography and pre-wedding films." },
+  { year: "2020", title: "Pan India Reach", desc: "Extended services to major cities across India." },
+  { year: "2023", title: "Growing Team", desc: "Built a strong team of 20 photography enthusiasts." },
+  { year: "2026", title: "250+ Events", desc: "Successfully covered over 250 Weddings & Events till date." },
 ];
 
 const highlights = [
-  { icon: Camera, label: "8+ Years", desc: "of professional experience" },
-  { icon: Award, label: "Top Rated", desc: "4.9★ client satisfaction" },
-  { icon: Heart, label: "500+", desc: "celebrations captured" },
-  { icon: Aperture, label: "Premium", desc: "equipment & editing" },
+  { icon: Camera, label: "Since 2015", desc: "professional experience" },
+  { icon: Heart, label: "250+", desc: "weddings & events covered" },
+  { icon: Award, label: "20 Strong", desc: "team of photography enthusiasts" },
+  { icon: Aperture, label: "Pan India", desc: "services across the country" },
 ];
 
 export function AboutSection() {
@@ -48,8 +48,8 @@ export function AboutSection() {
 
               {/* Floating stat card */}
               <div className="absolute -bottom-6 -right-6 md:right-[-2rem] glass-card p-4 md:p-5 z-10">
-                <div className="text-3xl font-heading font-bold text-accent">8+</div>
-                <div className="text-sm text-muted">Years of Excellence</div>
+                <div className="text-3xl font-heading font-bold text-accent">250+</div>
+                <div className="text-sm text-muted">Events Covered</div>
               </div>
             </div>
           </ScrollReveal>
@@ -58,19 +58,19 @@ export function AboutSection() {
           <div>
             <ScrollReveal delay={0.1}>
               <p className="text-lg text-muted leading-relaxed mb-6">
-                At Wed Filmer, we believe every celebration deserves to be
-                remembered beautifully. Our passion is creating timeless
-                photographs and cinematic films that capture genuine emotions
-                and unforgettable moments.
+                A team of 20 photography enthusiasts, who are passionate about creating timeless moments for our clients. We specialize in wedding photography, videography, pre-wedding photoshoots & films, we also cater to various types of Event coverage and shoots.
               </p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.2}>
+              <p className="text-base text-muted/80 leading-relaxed mb-6">
+                We started our journey in 2015 and our professional photographers have covered 250+ Weddings & Events till date. We are primarily based in Odisha but have extended our services all over India (Bangalore, Pune, Mumbai, Delhi, Hyderabad) etc.
+              </p>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.3}>
               <p className="text-base text-muted/80 leading-relaxed mb-10">
-                Founded in 2016, we&apos;ve grown from a solo photographer&apos;s dream into
-                a full-service creative studio. Every frame we capture is guided by
-                an unwavering commitment to artistry, authenticity, and the stories
-                that make each event uniquely yours.
+                We provide high quality service and timely deliveries. Our customer satisfaction is evident by multiple testimonials from our happy clients.
               </p>
             </ScrollReveal>
 

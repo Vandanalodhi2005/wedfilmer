@@ -361,9 +361,9 @@ export const SOCIAL_LINKS = [
 
 // Contact info
 export const CONTACT_INFO = {
-  email: "hello@wedfilmer.com",
-  phone: "+91 98765 43210",
-  whatsapp: "https://wa.me/919876543210",
-  address: "Studio 204, Creative Hub, Bandra West, Mumbai 400050",
-  mapUrl: "https://maps.google.com/?q=Bandra+West+Mumbai",
+  email: "wedfilmer@gmail.com",
+  phone: "+91 7978681650",
+  whatsapp: "https://wa.me/917978681650",
+  address: "Odisha, India",
+  mapUrl: "https://maps.google.com/?q=Odisha",
 } as const;
