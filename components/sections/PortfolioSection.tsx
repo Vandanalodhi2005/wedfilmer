@@ -25,10 +25,10 @@ export function PortfolioSection() {
     if (activeCategory !== 'All') {
       url += `?category=${activeCategory}`;
     }
-    fetch(url)
+    fetch(url, { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
-        if (data.success) setImages(data.data);
+        if (data.success) setImages(data.data || []);
       })
       .catch(err => console.error(err));
   };

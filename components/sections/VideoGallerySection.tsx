@@ -20,9 +20,9 @@ export function VideoGallerySection() {
 
   const fetchVideos = async () => {
     try {
-      const res = await fetch('/api/videos');
+      const res = await fetch('/api/videos', { credentials: 'include' });
       const data = await res.json();
-      if (data.success) setVideos(data.data);
+      if (data.success) setVideos(data.data || []);
     } catch (err) {
       console.error(err);
     }
