@@ -1,5 +1,7 @@
 import { Navbar } from "@/components/Navbar";
+import { PortfolioHero } from "@/components/sections/PortfolioHero";
 import { PortfolioSection } from "@/components/sections/PortfolioSection";
+import { VideoGallerySection } from "@/components/sections/VideoGallerySection";
 import { Footer } from "@/components/Footer";
 import { Metadata } from "next";
 
@@ -17,8 +19,10 @@ export default function PortfolioPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main>
+        <PortfolioHero />
         <PortfolioSection />
+        <VideoGallerySection />
       </main>
       <Footer />
     </>

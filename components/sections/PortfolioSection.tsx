@@ -1,62 +1,70 @@
+
 "use client";
 
-import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import {
-  PORTFOLIO_CATEGORIES,
-  PORTFOLIO_ITEMS,
-  type PortfolioCategory,
-} from "@/lib/constants";
-import { X, ZoomIn } from "lucide-react";
+import { PORTFOLIO_CATEGORIES, type PortfolioCategory } from "@/lib/constants";
 
-// Unsplash wedding photography images
-const portfolioImages = [
-  "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=1000&fit=crop", // Wedding couple
-  "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&h=600&fit=crop", // Pre-wedding
-  "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=800&fit=crop", // Corporate
-  "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800&h=600&fit=crop", // Beach wedding
-  "https://images.unsplash.com/photo-1464190789038-1903b2eeb0e1?w=800&h=1000&fit=crop", // Birthday
-  "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&h=800&fit=crop", // Family
-  "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=800&h=1000&fit=crop", // Engagement
-  "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop", // Corporate event
-  "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&h=800&fit=crop", // Royal wedding
-  "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=600&fit=crop", // Family portrait
-  "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=1000&fit=crop", // Carnival
-  "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=800&h=600&fit=crop", // Mountain wedding
-];
+type ImageItem = {
+  _id: string;
+  url: string;
+  publicId: string;
+  category: 'Wedding' | 'Pre-Wedding' | 'Corporate' | 'Family';
+  createdAt: string;
+  updatedAt: string;
+};
 
 export function PortfolioSection() {
   const [activeCategory, setActiveCategory] = useState<PortfolioCategory>("All");
-  const [lightboxId, setLightboxId] = useState<number | null>(null);
+  const [images, setImages] = useState<ImageItem[]>([]);
+  const [showAllImages, setShowAllImages] = useState(false);
 
-  const filtered =
-    activeCategory === "All"
-      ? PORTFOLIO_ITEMS
-      : PORTFOLIO_ITEMS.filter((item) => item.category === activeCategory);
+  const fetchImages = async () => {
+    let url = '/api/images';
+    if (activeCategory !== 'All') {
+      url += `?category=${activeCategory}`;
+    }
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) setImages(data.data);
+      })
+      .catch(err => console.error(err));
+  };
 
-  const lightboxItem = PORTFOLIO_ITEMS.find((item) => item.id === lightboxId);
+  useEffect(() => {
+    fetchImages();
+  }, [activeCategory]);
 
-  const closeLightbox = useCallback(() => setLightboxId(null), []);
+  // Reset showAllImages when category changes
+  useEffect(() => {
+    setShowAllImages(false);
+  }, [activeCategory]);
+
+  const displayedImages = showAllImages ? images : images.slice(0, 9);
 
   return (
-    <section id="portfolio" className="py-20 md:py-32 relative" aria-label="Portfolio gallery">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Our Featured Work" subtitle="Portfolio" />
+    <section id="portfolio" className="py-20 md:py-32 relative bg-gray-50" aria-label="Portfolio gallery">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 relative">
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <p className="text-sm uppercase tracking-[0.4em] text-gray-500 mb-4">Our Portfolio</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Featured Work</h2>
+          </div>
+        </ScrollReveal>
 
         {/* Category Filters */}
-        <ScrollReveal>
-          <div className="flex flex-wrap justify-center gap-3 mb-12 md:mb-16">
+        <ScrollReveal delay={0.1}>
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
             {PORTFOLIO_CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeCategory === cat
-                    ? "bg-accent text-primary shadow-[0_0_20px_rgba(212,175,55,0.3)]"
-                    : "glass text-muted hover:text-text hover:border-accent/30"
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
+                    : "bg-white text-gray-700 hover:bg-gray-100"
                 }`}
               >
                 {cat}
@@ -65,114 +73,62 @@ export function PortfolioSection() {
           </div>
         </ScrollReveal>
 
-        {/* Masonry Grid */}
-        <motion.div
-          layout
-          className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5"
-        >
-          <AnimatePresence mode="popLayout">
-            {filtered.map((item, idx) => (
-              <motion.div
-                key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="break-inside-avoid"
-              >
-                <button
-                  onClick={() => setLightboxId(item.id)}
-                  className="relative w-full group rounded-xl overflow-hidden block focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                  aria-label={`View ${item.title}`}
-                >
-                  {/* Image with gradient overlay */}
-                  <div
-                    className={`relative ${
-                      item.aspect === "portrait"
-                        ? "aspect-[3/4]"
-                        : item.aspect === "square"
-                        ? "aspect-square"
-                        : "aspect-[4/3]"
-                    }`}
+        {/* Grid Layout - Masonry Style */}
+        {images.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {displayedImages.map((item, idx) => {
+                // Create varying aspect ratios for visual interest
+                const aspectClasses = [
+                  "aspect-square",
+                  "aspect-[4/5]",
+                  "aspect-[3/4]",
+                  "aspect-[5/4]",
+                  "aspect-[4/3]"
+                ];
+                const randomAspect = aspectClasses[idx % aspectClasses.length];
+                
+                return (
+                  <motion.div
+                    key={item._id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: idx * 0.08 }}
+                    className="relative group overflow-hidden rounded-xl shadow-sm"
                   >
-                    <Image
-                      src={portfolioImages[idx % portfolioImages.length]}
-                      alt={item.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    <img
+                      src={item.url}
+                      alt={item.category}
+                      className={`w-full object-cover transition-transform duration-700 group-hover:scale-105 ${randomAspect}`}
+                      loading="lazy"
                     />
-                    <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-30 mix-blend-multiply`} />
-                  </div>
+                    {/* Subtle hover overlay */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-400" />
+                  </motion.div>
+                );
+              })}
+            </div>
 
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-primary/70 opacity-0 group-hover:opacity-100 transition-all duration-400 flex items-center justify-center">
-                    <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                      <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-accent/20 flex items-center justify-center">
-                        <ZoomIn size={20} className="text-accent" />
-                      </div>
-                      <p className="text-text font-heading font-bold text-lg">
-                        {item.title}
-                      </p>
-                      <p className="text-accent text-sm mt-1">{item.category}</p>
-                    </div>
-                  </div>
+            {/* Show More Button */}
+            {images.length > 9 && (
+              <div className="text-center mt-12">
+                <button
+                  onClick={() => setShowAllImages(!showAllImages)}
+                  className="px-8 py-3 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
+                >
+                  {showAllImages ? "Show Less" : "Show More"}
                 </button>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-      </div>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightboxItem && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-white/95 backdrop-blur-md flex items-center justify-center p-4"
-            onClick={closeLightbox}
-            role="dialog"
-            aria-label={`Viewing ${lightboxItem.title}`}
-          >
-            <motion.div
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-4xl w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={closeLightbox}
-                className="absolute -top-12 right-0 p-2 text-muted hover:text-text transition-colors"
-                aria-label="Close lightbox"
-              >
-                <X size={28} />
-              </button>
-
-              <div className="relative aspect-video rounded-2xl overflow-hidden">
-                <Image
-                  src={portfolioImages[(lightboxItem.id - 1) % portfolioImages.length]}
-                  alt={lightboxItem.title}
-                  fill
-                  className="object-cover"
-                  sizes="90vw"
-                />
-                <div className={`absolute inset-0 bg-gradient-to-br ${lightboxItem.gradient} opacity-20 mix-blend-multiply`} />
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-                  <p className="text-white font-heading text-3xl font-bold mb-2">
-                    {lightboxItem.title}
-                  </p>
-                  <p className="text-white/60 text-base">{lightboxItem.category}</p>
-                </div>
               </div>
-            </motion.div>
-          </motion.div>
+            )}
+          </>
+        ) : (
+          <div className="text-center py-24 bg-white rounded-2xl shadow-sm border border-gray-100">
+            <p className="text-gray-500 text-lg">No images yet</p>
+            <p className="text-gray-400 text-sm mt-2">Check back soon for our latest work</p>
+          </div>
         )}
-      </AnimatePresence>
+      </div>
     </section>
   );
 }

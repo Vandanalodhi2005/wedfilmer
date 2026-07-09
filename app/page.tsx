@@ -6,7 +6,6 @@ import { ServicesSection } from "@/components/sections/ServicesSection";
 import { PortfolioSection } from "@/components/sections/PortfolioSection";
 import { WhyChooseUsSection } from "@/components/sections/WhyChooseUsSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { PricingSection } from "@/components/sections/PricingSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { ContactSection } from "@/components/sections/ContactSection";
@@ -28,7 +27,6 @@ export default function Home() {
         <PortfolioSection />
         <WhyChooseUsSection />
         <TestimonialsSection />
-        <PricingSection />
         <ProcessSection />
         <FAQSection />
         <ContactSection />

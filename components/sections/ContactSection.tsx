@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -12,26 +13,35 @@ export function ContactSection() {
     name: "",
     email: "",
     phone: "",
-    eventType: "",
     message: "",
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    
-    alert("Thank you for your inquiry! We'll get back to you within 24 hours.");
-    setFormData({ name: "", email: "", phone: "", eventType: "", message: "" });
-    setIsSubmitting(false);
+    try {
+      const res = await fetch('/api/contacts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("Thank you for your inquiry! We'll get back to you within 24 hours.");
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -171,27 +181,6 @@ export function ContactSection() {
                       className="w-full px-4 py-3 rounded-lg bg-primary/50 border border-glass-border text-text placeholder:text-muted/50 focus:outline-none focus:border-accent/50 transition-colors"
                       placeholder="+91 98765 43210"
                     />
-                  </div>
-                  <div>
-                    <label htmlFor="eventType" className="block text-sm font-medium text-muted mb-2">
-                      Event Type *
-                    </label>
-                    <select
-                      id="eventType"
-                      name="eventType"
-                      required
-                      value={formData.eventType}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg bg-primary/50 border border-glass-border text-text focus:outline-none focus:border-accent/50 transition-colors"
-                    >
-                      <option value="">Select Event</option>
-                      <option value="wedding">Wedding</option>
-                      <option value="pre-wedding">Pre-Wedding</option>
-                      <option value="corporate">Corporate Event</option>
-                      <option value="birthday">Birthday</option>
-                      <option value="family">Family Function</option>
-                      <option value="other">Other</option>
-                    </select>
                   </div>
                 </div>
 

@@ -1,14 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowRight, Play, Calendar } from "lucide-react";
-
-const CameraScene = dynamic(
-  () => import("@/components/three/CameraScene").then((m) => m.CameraScene),
-  { ssr: false }
-);
 
 export function HeroSection() {
   return (
@@ -17,33 +11,30 @@ export function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       aria-label="Hero"
     >
-      {/* Video Background Effect with Overlay */}
+      {/* Video Background with Overlay */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-gray-100" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(0,0,0,0.03)_0%,_transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(0,0,0,0.02)_0%,_transparent_40%)]" />
+        {/* Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source
+            src="/portfolio.mp4"
+            type="video/mp4"
+          />
+        </video>
         
-        {/* Animated gradient orbs */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.03, 0.06, 0.03],
-          }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="absolute top-1/4 right-1/4 w-96 h-96 bg-black/5 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.02, 0.04, 0.02],
-          }}
-          transition={{ duration: 10, repeat: Infinity }}
-          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-black/3 rounded-full blur-3xl"
-        />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/40" />
+        
+        {/* Gradient Overlay for better readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
       </div>
 
-      {/* 3D Scene */}
-      <CameraScene />
+
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
@@ -53,13 +44,13 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-black/5 border border-black/10 mb-8"
+            className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 border border-white/20 mb-8"
           >
             <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-black"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
             </span>
-            <span className="text-sm text-gray-700 font-medium tracking-wide">
+            <span className="text-sm text-white font-medium tracking-wide">
               Capturing Love Stories That Last Forever
             </span>
           </motion.div>
@@ -69,10 +60,10 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[1.05] mb-8 text-black"
+            className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[1.05] mb-8 text-white"
           >
             <span className="block mb-2">Your Story,</span>
-            <span className="block text-shimmer">Beautifully Told</span>
+            <span className="block text-white">Beautifully Told</span>
           </motion.h1>
 
           {/* Subheadline */}
@@ -80,7 +71,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.7 }}
-            className="text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed font-light"
+            className="text-xl sm:text-2xl text-white/90 max-w-3xl mx-auto mb-12 leading-relaxed font-light"
           >
             Premium wedding & event photography that transforms fleeting moments
             into timeless masterpieces
@@ -94,16 +85,16 @@ export function HeroSection() {
             className="flex flex-wrap items-center justify-center gap-8 mb-12 text-sm"
           >
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-black"></div>
-              <span className="text-gray-600">500+ Events Captured</span>
+              <div className="w-2 h-2 rounded-full bg-white"></div>
+              <span className="text-white/80">500+ Events Captured</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-black"></div>
-              <span className="text-gray-600">8+ Years Experience</span>
+              <div className="w-2 h-2 rounded-full bg-white"></div>
+              <span className="text-white/80">8+ Years Experience</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-black"></div>
-              <span className="text-gray-600">4.9★ Client Rating</span>
+              <div className="w-2 h-2 rounded-full bg-white"></div>
+              <span className="text-white/80">4.9★ Client Rating</span>
             </div>
           </motion.div>
 
@@ -116,7 +107,7 @@ export function HeroSection() {
           >
             <Link
               href="/contact"
-              className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-black text-white font-semibold text-lg overflow-hidden transition-all duration-500 hover:shadow-xl hover:scale-105"
+              className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-white text-black font-semibold text-lg overflow-hidden transition-all duration-500 hover:shadow-xl hover:scale-105"
             >
               <span className="relative z-10 flex items-center gap-3">
                 <Calendar size={20} />
@@ -130,9 +121,9 @@ export function HeroSection() {
 
             <Link
               href="/portfolio"
-              className="group inline-flex items-center gap-3 px-10 py-5 rounded-full border-2 border-black/20 text-black font-semibold text-lg hover:border-black hover:bg-black hover:text-white transition-all duration-300"
+              className="group inline-flex items-center gap-3 px-10 py-5 rounded-full border-2 border-white/30 text-white font-semibold text-lg hover:border-white hover:bg-white hover:text-black transition-all duration-300"
             >
-              <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center group-hover:bg-white/20">
+              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-black/10">
                 <Play size={16} className="ml-0.5" fill="currentColor" />
               </div>
               View Our Work
@@ -147,18 +138,18 @@ export function HeroSection() {
             className="mt-16 flex flex-wrap items-center justify-center gap-8 sm:gap-12"
           >
             <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-heading font-bold text-accent mb-1">1000+</div>
-              <div className="text-xs sm:text-sm text-muted uppercase tracking-wider">Happy Couples</div>
+              <div className="text-3xl sm:text-4xl font-heading font-bold text-white mb-1">1000+</div>
+              <div className="text-xs sm:text-sm text-white/70 uppercase tracking-wider">Happy Couples</div>
             </div>
-            <div className="h-12 w-px bg-accent/20 hidden sm:block" />
+            <div className="h-12 w-px bg-white/20 hidden sm:block" />
             <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-heading font-bold text-accent mb-1">100%</div>
-              <div className="text-xs sm:text-sm text-muted uppercase tracking-wider">Satisfaction</div>
+              <div className="text-3xl sm:text-4xl font-heading font-bold text-white mb-1">100%</div>
+              <div className="text-xs sm:text-sm text-white/70 uppercase tracking-wider">Satisfaction</div>
             </div>
-            <div className="h-12 w-px bg-accent/20 hidden sm:block" />
+            <div className="h-12 w-px bg-white/20 hidden sm:block" />
             <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-heading font-bold text-accent mb-1">Award</div>
-              <div className="text-xs sm:text-sm text-muted uppercase tracking-wider">Winning Team</div>
+              <div className="text-3xl sm:text-4xl font-heading font-bold text-white mb-1">Award</div>
+              <div className="text-xs sm:text-sm text-white/70 uppercase tracking-wider">Winning Team</div>
             </div>
           </motion.div>
         </div>
@@ -171,18 +162,18 @@ export function HeroSection() {
         transition={{ delay: 2, duration: 0.8 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
       >
-        <span className="text-xs text-muted/60 tracking-[0.3em] uppercase font-medium">
+        <span className="text-xs text-white/60 tracking-[0.3em] uppercase font-medium">
           Explore
         </span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-6 h-10 rounded-full border-2 border-accent/30 flex items-start justify-center pt-2"
+          className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center pt-2"
         >
           <motion.div
             animate={{ opacity: [1, 0.3, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1.5 h-2 rounded-full bg-accent"
+            className="w-1.5 h-2 rounded-full bg-white"
           />
         </motion.div>
       </motion.div>
