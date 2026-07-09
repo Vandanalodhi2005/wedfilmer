@@ -25,7 +25,7 @@ export function PortfolioSection() {
     if (activeCategory !== 'All') {
       url += `?category=${activeCategory}`;
     }
-    fetch(url, { credentials: 'include' })
+    fetch(url, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         if (data.success) setImages(data.data || []);
