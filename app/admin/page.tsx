@@ -2,6 +2,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { adminFetch } from '@/lib/adminApi';
 import {
   LayoutDashboard,
   Image as ImageIcon,
@@ -22,9 +23,9 @@ export default function AdminDashboard() {
   const fetchStats = async () => {
     try {
       const [imagesRes, videosRes, contactsRes] = await Promise.all([
-        fetch('/api/images'),
-        fetch('/api/videos'),
-        fetch('/api/contacts')
+        adminFetch('/api/images'),
+        adminFetch('/api/videos'),
+        adminFetch('/api/contacts')
       ]);
       const imagesData = await imagesRes.json();
       const videosData = await videosRes.json();

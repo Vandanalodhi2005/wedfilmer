@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { adminFetch } from '@/lib/adminApi';
 import { Mail, Phone, Calendar, Trash2, MessageSquare } from 'lucide-react';
 
 type ContactInquiry = {
@@ -19,7 +20,7 @@ export default function ManageContacts() {
 
   const fetchInquiries = async () => {
     try {
-      const res = await fetch('/api/contacts');
+      const res = await adminFetch('/api/contacts');
       const data = await res.json();
       if (data.success) setInquiries(data.data);
     } catch (err) {
@@ -34,7 +35,7 @@ export default function ManageContacts() {
   const handleDeleteInquiry = async (id: string) => {
     if (confirm('Are you sure you want to delete this inquiry?')) {
       try {
-        const res = await fetch(`/api/contacts?id=${id}`, { method: 'DELETE' });
+        const res = await adminFetch(`/api/contacts?id=${id}`, { method: 'DELETE' });
         const data = await res.json();
         if (data.success) {
           setInquiries(inquiries.filter(inq => inq._id !== id));

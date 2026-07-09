@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { adminFetch } from '@/lib/adminApi';
 import { Plus, Trash2, Image as ImageIcon, Upload, X } from 'lucide-react';
 
 type ImageItem = {
@@ -33,7 +34,7 @@ export default function ManageImages() {
 
   const fetchImages = async () => {
     try {
-      const res = await fetch('/api/images');
+      const res = await adminFetch('/api/images');
       const data = await res.json();
       if (data.success) setImages(data.data);
     } catch (err) {
@@ -72,7 +73,7 @@ export default function ManageImages() {
       const payload: any = { category: formData.category };
       if (previewUrl) payload.base64 = previewUrl;
       if (formData.url) payload.url = formData.url;
-      const res = await fetch('/api/images', {
+      const res = await adminFetch('/api/images', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -96,7 +97,7 @@ export default function ManageImages() {
   const handleDeleteImage = async (id: string) => {
     if (confirm('Are you sure you want to delete this image?')) {
       try {
-        const res = await fetch(`/api/images?id=${id}`, { method: 'DELETE' });
+        const res = await adminFetch(`/api/images?id=${id}`, { method: 'DELETE' });
         const data = await res.json();
         if (data.success) {
           setImages(images.filter(img => img._id !== id));

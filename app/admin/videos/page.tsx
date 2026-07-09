@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { adminFetch } from '@/lib/adminApi';
 import { Plus, Trash2, Video as VideoIcon, Upload } from 'lucide-react';
 
 type VideoItem = {
@@ -33,7 +34,7 @@ export default function ManageVideos() {
 
   const fetchVideos = async () => {
     try {
-      const res = await fetch('/api/videos');
+      const res = await adminFetch('/api/videos');
       const data = await res.json();
       if (data.success) setVideos(data.data);
     } catch (err) {
@@ -79,7 +80,7 @@ export default function ManageVideos() {
       const payload: any = { category: formData.category };
       if (previewUrl) payload.base64 = previewUrl;
       if (formData.url) payload.url = formData.url;
-      const res = await fetch('/api/videos', {
+      const res = await adminFetch('/api/videos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -99,7 +100,7 @@ export default function ManageVideos() {
   const handleDeleteVideo = async (id: string) => {
     if (confirm('Are you sure you want to delete this video?')) {
       try {
-        const res = await fetch(`/api/videos?id=${id}`, { method: 'DELETE' });
+        const res = await adminFetch(`/api/videos?id=${id}`, { method: 'DELETE' });
         const data = await res.json();
         if (data.success) {
           setVideos(videos.filter(vid => vid._id !== id));
