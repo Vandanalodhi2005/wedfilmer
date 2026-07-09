@@ -45,26 +45,38 @@ export function PortfolioSection() {
   const displayedImages = showAllImages ? images : images.slice(0, 9);
 
   return (
-    <section id="portfolio" className="py-20 md:py-32 relative bg-gray-50" aria-label="Portfolio gallery">
-      <div className="max-w-7xl mx-auto px-6 md:px-8 relative">
+    <section
+      id="portfolio"
+      className="relative overflow-hidden py-20 md:py-32"
+      style={{
+        backgroundImage:
+          "linear-gradient(135deg, rgba(248,250,252,0.95) 0%, rgba(238,242,255,0.95) 45%, rgba(253,242,248,0.95) 100%)"
+      }}
+      aria-label="Portfolio gallery"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.16),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(236,72,153,0.16),_transparent_35%)]" />
+
+      <div className="relative mx-auto max-w-7xl px-6 md:px-8">
         <ScrollReveal>
-          <div className="text-center mb-16">
-            <p className="text-sm uppercase tracking-[0.4em] text-gray-500 mb-4">Our Portfolio</p>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Featured Work</h2>
+          <div className="mb-16 text-center">
+            <p className="mb-4 text-sm uppercase tracking-[0.4em] text-gray-500">Our Portfolio</p>
+            <h2 className="text-4xl font-bold text-gray-900 md:text-5xl">Featured Work</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-gray-600">
+              A polished collection of timeless moments, presented in their true form and emotion.
+            </p>
           </div>
         </ScrollReveal>
 
-        {/* Category Filters */}
         <ScrollReveal delay={0.1}>
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
+          <div className="mb-12 flex flex-wrap justify-center gap-3">
             {PORTFOLIO_CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-[0.25em] transition-all duration-300 ${
                   activeCategory === cat
-                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
-                    : "bg-white text-gray-700 hover:bg-gray-100"
+                    ? "bg-slate-900 text-white shadow-[0_16px_40px_-18px_rgba(15,23,42,0.8)]"
+                    : "border border-white/70 bg-white/80 text-slate-700 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.45)] backdrop-blur hover:-translate-y-0.5 hover:bg-white"
                 }`}
               >
                 {cat}
@@ -73,49 +85,35 @@ export function PortfolioSection() {
           </div>
         </ScrollReveal>
 
-        {/* Grid Layout - Masonry Style */}
         {images.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {displayedImages.map((item, idx) => {
-                // Create varying aspect ratios for visual interest
-                const aspectClasses = [
-                  "aspect-square",
-                  "aspect-[4/5]",
-                  "aspect-[3/4]",
-                  "aspect-[5/4]",
-                  "aspect-[4/3]"
-                ];
-                const randomAspect = aspectClasses[idx % aspectClasses.length];
-                
-                return (
-                  <motion.div
-                    key={item._id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: idx * 0.08 }}
-                    className="relative group overflow-hidden rounded-xl shadow-sm"
-                  >
+            <div className="columns-1 gap-5 sm:columns-2 xl:columns-3">
+              {displayedImages.map((item, idx) => (
+                <motion.div
+                  key={item._id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: idx * 0.06 }}
+                  className="group mb-5 break-inside-avoid"
+                >
+                  <div className="overflow-hidden rounded-[1.5rem] bg-white/70 shadow-[0_25px_80px_-30px_rgba(15,23,42,0.35)] backdrop-blur-sm transition-transform duration-500 group-hover:-translate-y-1">
                     <img
                       src={item.url}
-                      alt={item.category}
-                      className={`w-full object-cover transition-transform duration-700 group-hover:scale-105 ${randomAspect}`}
+                      alt={`${item.category} portfolio image`}
+                      className="block h-auto w-full rounded-[1.35rem] object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                       loading="lazy"
                     />
-                    {/* Subtle hover overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-400" />
-                  </motion.div>
-                );
-              })}
+                  </div>
+                </motion.div>
+              ))}
             </div>
 
-            {/* Show More Button */}
             {images.length > 9 && (
-              <div className="text-center mt-12">
+              <div className="mt-12 text-center">
                 <button
                   onClick={() => setShowAllImages(!showAllImages)}
-                  className="px-8 py-3 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
+                  className="rounded-full bg-gray-900 px-8 py-3 font-medium text-white transition-colors hover:bg-gray-800"
                 >
                   {showAllImages ? "Show Less" : "Show More"}
                 </button>
@@ -123,9 +121,9 @@ export function PortfolioSection() {
             )}
           </>
         ) : (
-          <div className="text-center py-24 bg-white rounded-2xl shadow-sm border border-gray-100">
-            <p className="text-gray-500 text-lg">No images yet</p>
-            <p className="text-gray-400 text-sm mt-2">Check back soon for our latest work</p>
+          <div className="rounded-3xl border border-gray-200 bg-white/80 py-24 text-center shadow-sm backdrop-blur">
+            <p className="text-lg text-gray-500">No images yet</p>
+            <p className="mt-2 text-sm text-gray-400">Check back soon for our latest work</p>
           </div>
         )}
       </div>

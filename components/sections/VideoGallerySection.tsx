@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
@@ -17,6 +17,7 @@ type VideoItem = {
 export function VideoGallerySection() {
   const [videos, setVideos] = useState<VideoItem[]>([]);
   const [showAllVideos, setShowAllVideos] = useState(false);
+  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
 
   const fetchVideos = async () => {
     try {
@@ -33,6 +34,22 @@ export function VideoGallerySection() {
   }, []);
 
   const displayedVideos = showAllVideos ? videos : videos.slice(0, 6);
+
+  const playVideo = (id: string) => {
+    const video = videoRefs.current[id];
+    if (video) {
+      video.currentTime = 0;
+      video.play().catch(() => undefined);
+    }
+  };
+
+  const pauseVideo = (id: string) => {
+    const video = videoRefs.current[id];
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  };
 
   return (
     <section className="py-20 md:py-32 bg-white">
@@ -54,14 +71,23 @@ export function VideoGallerySection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  className="bg-gray-50 rounded-xl overflow-hidden shadow-sm border border-gray-100"
+                  className="overflow-hidden rounded-xl border border-gray-100 bg-gray-50 shadow-sm"
+                  onMouseEnter={() => playVideo(video._id)}
+                  onMouseLeave={() => pauseVideo(video._id)}
                 >
                   {/* Video Player */}
                   <div className="relative aspect-video bg-black">
                     <video
+                      ref={(el) => {
+                        videoRefs.current[video._id] = el;
+                      }}
                       src={video.url}
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
                       controls
-                      className="w-full h-full object-cover"
+                      className="h-full w-full object-cover"
                     />
                   </div>
                   {/* Video Info */}

@@ -353,10 +353,10 @@ export const FAQ_ITEMS: FAQItem[] = [
 
 // Social links
 export const SOCIAL_LINKS = [
-  { name: "Instagram", url: "https://instagram.com/wedfilmer" },
-  { name: "Facebook", url: "https://facebook.com/wedfilmer" },
-  { name: "YouTube", url: "https://youtube.com/@wedfilmer" },
-  { name: "Pinterest", url: "https://pinterest.com/wedfilmer" },
+  { name: "Instagram", url: "https://instagram.com/wedfilmer", icon: "instagram" as const },
+  { name: "Facebook", url: "https://facebook.com/wedfilmer", icon: "facebook" as const },
+  { name: "YouTube", url: "https://youtube.com/@wedfilmer", icon: "youtube" as const },
+  { name: "Twitter", url: "https://twitter.com/wedfilmer", icon: "twitter" as const },
 ] as const;
 
 // Contact info

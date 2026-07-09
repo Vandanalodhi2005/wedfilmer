@@ -34,16 +34,15 @@ export function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo - Image Only */}
-            <Link href="/" className="group" aria-label="Wed Filmer Home">
-              <div className="relative w-44 h-14 group-hover:ring-black/20 transition-all duration-300">
+        <nav className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8" aria-label="Main navigation">
+          <div className="flex h-16 items-center justify-between sm:h-20">
+            <Link href="/" className="group flex items-center" aria-label="Wed Filmer Home">
+              <div className="relative h-10 w-32 transition-all duration-300 sm:h-12 sm:w-40 lg:h-14 lg:w-44">
                 <Image
                   src="/logo-white.png"
                   alt="Wed Filmer"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   priority
                 />
               </div>
@@ -64,20 +63,20 @@ export function Navbar() {
             </div>
 
             {/* CTA + Mobile Toggle */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <Link
                 href="/contact"
-                className="hidden sm:inline-flex items-center px-6 py-2.5 rounded-full bg-black text-white text-sm font-semibold hover:bg-gray-800 transition-all duration-300"
+                className="hidden rounded-full bg-black px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-gray-800 sm:inline-flex"
               >
                 Book Now
               </Link>
               <button
                 onClick={toggleMenu}
-                className="lg:hidden p-2 text-gray-700 hover:text-black transition-colors"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black text-white shadow-lg shadow-black/15 transition-all duration-300 hover:scale-105 hover:bg-gray-800 lg:hidden"
                 aria-label={isOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isOpen}
               >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
+                {isOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </div>
@@ -103,27 +102,27 @@ export function Navbar() {
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
               className="fixed top-0 right-0 bottom-0 z-50 w-80 max-w-[85vw] bg-white/95 backdrop-blur-xl border-l border-gray-200 lg:hidden"
             >
-              <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-6 border-b border-gray-200">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden shadow-md">
+              <div className="flex h-full flex-col">
+                <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4 sm:px-6">
+                  <div className="relative h-10 w-28 sm:h-12 sm:w-32">
                     <Image
-                      src="/logo.png"
+                      src="/logo-white.png"
                       alt="Wed Filmer"
                       fill
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
                   <button
                     onClick={closeMenu}
-                    className="p-2 text-gray-500 hover:text-black transition-colors"
+                    className="rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-black"
                     aria-label="Close menu"
                   >
-                    <X size={24} />
+                    <X size={20} />
                   </button>
                 </div>
 
-                <nav className="flex-1 py-8 px-6" aria-label="Mobile navigation">
-                  <div className="flex flex-col gap-2">
+                <nav className="flex-1 px-5 py-6 sm:px-6" aria-label="Mobile navigation">
+                  <div className="flex flex-col gap-1">
                     {NAV_LINKS.map((link, i) => (
                       <motion.div
                         key={link.href}
@@ -134,7 +133,7 @@ export function Navbar() {
                         <Link
                           href={link.href}
                           onClick={closeMenu}
-                          className="block py-3 px-4 text-lg text-gray-700 hover:text-black hover:bg-gray-50 rounded-lg transition-all duration-300"
+                          className="block rounded-xl px-4 py-3 text-base font-medium text-gray-700 transition-all duration-300 hover:bg-gray-50 hover:text-black"
                         >
                           {link.label}
                         </Link>
@@ -143,11 +142,11 @@ export function Navbar() {
                   </div>
                 </nav>
 
-                <div className="p-6 border-t border-gray-200">
+                <div className="border-t border-gray-200 px-5 py-4 sm:px-6">
                   <Link
                     href="/contact"
                     onClick={closeMenu}
-                    className="block w-full text-center px-6 py-3 rounded-full bg-black text-white font-semibold hover:bg-gray-800 transition-all duration-300"
+                    className="block w-full rounded-full bg-black px-6 py-3 text-center font-semibold text-white transition-all duration-300 hover:bg-gray-800"
                   >
                     Book a Session
                   </Link>
