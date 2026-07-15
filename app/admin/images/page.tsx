@@ -3,7 +3,47 @@
 
 import { useState, useEffect } from 'react';
 import { adminFetch } from '@/lib/adminApi';
-import { Plus, Trash2, Image as ImageIcon, Upload, X } from 'lucide-react';
+import { Plus, Trash2, Image as ImageIcon, Upload } from 'lucide-react';
+
+// Compress image using canvas before uploading to Cloudinary (10MB limit)
+const compressImage = (file: File, maxSizeMB = 8, maxWidth = 1920): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new window.Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let { width, height } = img;
+
+        // Resize if too wide
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Try decreasing quality until under limit
+        let quality = 0.85;
+        let dataUrl = canvas.toDataURL('image/jpeg', quality);
+
+        while (dataUrl.length > maxSizeMB * 1024 * 1024 * 1.37 && quality > 0.1) {
+          quality -= 0.1;
+          dataUrl = canvas.toDataURL('image/jpeg', quality);
+        }
+
+        resolve(dataUrl);
+      };
+      img.onerror = reject;
+      img.src = e.target?.result as string;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+};
 
 type ImageItem = {
   _id: string;
@@ -49,11 +89,16 @@ export default function ManageImages() {
 
   useEffect(() => {
     if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setPreviewUrl(e.target?.result as string);
-      };
-      reader.readAsDataURL(selectedFile);
+      // Compress and preview at the same time
+      compressImage(selectedFile)
+        .then((dataUrl) => setPreviewUrl(dataUrl))
+        .catch((err) => {
+          console.error('Compression failed:', err);
+          // Fallback to raw file
+          const reader = new FileReader();
+          reader.onload = (e) => setPreviewUrl(e.target?.result as string);
+          reader.readAsDataURL(selectedFile);
+        });
     } else {
       setPreviewUrl(null);
     }
@@ -137,7 +182,9 @@ export default function ManageImages() {
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-slate-300 mb-2">Upload Image</label>
               <div className="flex flex-col gap-3">
-                <label className="flex items-center justify-center gap-2 px-4 py-6 bg-slate-700 border-2 border-dashed border-slate-600 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
+                <label className="flex items-center justify-center gap-2 px-4 py-6 bg-slate-700 border-2 border-dashed border-slate-600 rounded-xl cursor-pointer transition-colors" style={{ '--hover-border': '#B8A796' } as React.CSSProperties}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = '#B8A796')}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = '')}>
                   <Upload className="w-6 h-6 text-slate-400" />
                   <span className="text-slate-400">
                     {selectedFile ? selectedFile.name : 'Click to select or drag and drop'}
@@ -168,7 +215,8 @@ export default function ManageImages() {
                 type="url"
                 value={formData.url}
                 onChange={(e) => setFormData({ ...formData, url: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                style={{ '--tw-ring-color': '#B8A796' } as React.CSSProperties}
                 placeholder="https://example.com/image.jpg"
                 disabled={!!previewUrl}
               />
@@ -179,7 +227,8 @@ export default function ManageImages() {
               <select
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
-                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                style={{ '--tw-ring-color': '#B8A796' } as React.CSSProperties}
               >
                 {categories.map((cat) => (
                   <option key={cat.value} value={cat.value}>
@@ -192,7 +241,8 @@ export default function ManageImages() {
           <button
             type="submit"
             disabled={loading || (!previewUrl && !formData.url)}
-            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
+            className="px-8 py-3 text-slate-900 font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
+            style={{ background: '#B8A796' }}
           >
             {loading ? 'Uploading...' : 'Add Image'}
           </button>
@@ -205,9 +255,10 @@ export default function ManageImages() {
           onClick={() => setSelectedCategory('all')}
           className={`px-4 py-2 rounded-lg font-medium transition-all ${
             selectedCategory === 'all'
-              ? 'bg-blue-600 text-white'
+              ? 'text-slate-900'
               : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
           }`}
+          style={selectedCategory === 'all' ? { background: '#B8A796' } : undefined}
         >
           All
         </button>
@@ -217,9 +268,10 @@ export default function ManageImages() {
             onClick={() => setSelectedCategory(cat.value as any)}
             className={`px-4 py-2 rounded-lg font-medium transition-all ${
               selectedCategory === cat.value
-                ? 'bg-blue-600 text-white'
+                ? 'text-slate-900'
                 : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
             }`}
+            style={selectedCategory === cat.value ? { background: '#B8A796' } : undefined}
           >
             {cat.label}
           </button>

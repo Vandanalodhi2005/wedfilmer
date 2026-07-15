@@ -45,9 +45,9 @@ export default function AdminDashboard() {
   }, []);
 
   const statCards = [
-    { label: 'Total Images', value: stats.images, icon: ImageIcon, color: 'from-blue-500 to-cyan-500' },
-    { label: 'Total Videos', value: stats.videos, icon: Video, color: 'from-purple-500 to-pink-500' },
-    { label: 'Contact Inquiries', value: stats.contacts, icon: Mail, color: 'from-green-500 to-emerald-500' },
+    { label: 'Total Images', value: stats.images, icon: ImageIcon, color: 'from-[#B8A796] to-[#C9BAA9]' },
+    { label: 'Total Videos', value: stats.videos, icon: Video, color: 'from-[#A89585] to-[#B8A796]' },
+    { label: 'Contact Inquiries', value: stats.contacts, icon: Mail, color: 'from-[#8D7B6B] to-[#A89585]' },
   ];
 
   return (
@@ -85,10 +85,10 @@ export default function AdminDashboard() {
       <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700">
         <h2 className="text-xl font-bold text-white mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <a href="/admin/images" className="p-4 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl text-white font-medium hover:opacity-90 transition-opacity text-left block">
+          <a href="/admin/images" className="p-4 rounded-xl text-slate-900 font-medium hover:opacity-90 transition-opacity text-left block" style={{ background: '#B8A796' }}>
             Add New Image
           </a>
-          <a href="/admin/videos" className="p-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl text-white font-medium hover:opacity-90 transition-opacity text-left block">
+          <a href="/admin/videos" className="p-4 rounded-xl text-slate-900 font-medium hover:opacity-90 transition-opacity text-left block" style={{ background: '#A89585' }}>
             Add New Video
           </a>
         </div>

@@ -3,13 +3,13 @@
 
 /* ── Custom Theme Tokens ── */
 @theme inline {
-  --color-primary: #FFFFFF;
+  --color-primary: #B8A796;
   --color-secondary: #FAFAFA;
   --color-accent: #000000;
   --color-accent-light: #1A1A1A;
   --color-accent-dark: #000000;
   --color-text: #0A0A0A;
-  --color-muted: #6B7280;
+  --color-muted: #000000;
   --color-card: rgba(255, 255, 255, 0.9);
   --color-card-border: rgba(0, 0, 0, 0.1);
   --color-glass: rgba(255, 255, 255, 0.95);

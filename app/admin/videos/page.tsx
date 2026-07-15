@@ -177,7 +177,8 @@ export default function ManageVideos() {
                 type="url"
                 value={formData.url}
                 onChange={(e) => setFormData({ ...formData, url: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                style={{ '--tw-ring-color': '#B8A796' } as React.CSSProperties}
                 placeholder="https://example.com/video.mp4"
                 disabled={!!previewUrl}
               />
@@ -187,7 +188,8 @@ export default function ManageVideos() {
               <select
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
-                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                style={{ '--tw-ring-color': '#B8A796' } as React.CSSProperties}
               >
                 {categories.map((cat) => (
                   <option key={cat.value} value={cat.value}>
@@ -200,7 +202,8 @@ export default function ManageVideos() {
           <button
             type="submit"
             disabled={loading || (!previewUrl && !formData.url)}
-            className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
+            className="px-8 py-3 text-slate-900 font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
+            style={{ background: '#B8A796' }}
           >
             {loading ? 'Uploading...' : 'Add Video'}
           </button>
@@ -213,9 +216,10 @@ export default function ManageVideos() {
           onClick={() => setSelectedCategory('all')}
           className={`px-4 py-2 rounded-lg font-medium transition-all ${
             selectedCategory === 'all'
-              ? 'bg-purple-600 text-white'
+              ? 'text-slate-900'
               : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
           }`}
+          style={selectedCategory === 'all' ? { background: '#B8A796' } : undefined}
         >
           All
         </button>
@@ -225,9 +229,10 @@ export default function ManageVideos() {
             onClick={() => setSelectedCategory(cat.value as any)}
             className={`px-4 py-2 rounded-lg font-medium transition-all ${
               selectedCategory === cat.value
-                ? 'bg-purple-600 text-white'
+                ? 'text-slate-900'
                 : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
             }`}
+            style={selectedCategory === cat.value ? { background: '#B8A796' } : undefined}
           >
             {cat.label}
           </button>

@@ -72,7 +72,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         >
           <div className="p-6 border-b border-slate-700">
             <h1 className="text-2xl font-bold text-white">Wedfilmer</h1>
-            <p className="text-blue-400 text-sm">Admin Panel</p>
+            <p className="text-sm" style={{ color: '#B8A796' }}>Admin Panel</p>
           </div>
 
           <nav className="p-4 space-y-2">
@@ -89,10 +89,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   className={`
                     w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all
                     ${isActive
-                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                      ? 'text-white shadow-lg'
                       : 'text-slate-300 hover:bg-slate-700 hover:text-white'
                     }
                   `}
+                  style={isActive ? { background: '#B8A796' } : undefined}
                 >
                   <Icon className="w-5 h-5" />
                   <span className="font-medium">{item.label}</span>
