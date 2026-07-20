@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Camera, Award, Heart, Aperture } from "lucide-react";
 
@@ -85,38 +86,80 @@ export function AboutSection() {
         </div>
 
         {/* Timeline */}
-        <div className="mt-20 md:mt-32">
-          <ScrollReveal>
-            <h3 className="text-center font-heading text-3xl md:text-4xl font-bold text-text mb-16 md:mb-24">
-              Our Journey
-            </h3>
-          </ScrollReveal>
+        <div className="mt-16 md:mt-20 overflow-hidden">
+          <motion.h3
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center font-heading text-2xl md:text-3xl font-bold text-text mb-14 md:mb-20"
+          >
+            Our Journey
+          </motion.h3>
 
-          <div className="relative mx-auto max-w-4xl">
-            {/* Center Vertical Line */}
-            <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[1px] bg-accent/20 md:-translate-x-1/2" />
+          {/* Horizontal Timeline */}
+          <div className="relative">
+            {/* Horizontal center line */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="absolute left-0 right-0 top-1/2 h-[2px] bg-gradient-to-r from-transparent via-accent/30 to-transparent origin-left"
+            />
 
-            <div className="flex flex-col gap-12 md:gap-24">
+            <div className="flex justify-between items-center relative px-2 md:px-4">
               {milestones.map((m, i) => {
-                const isEven = i % 2 === 0;
+                const isTop = i % 2 === 0;
                 return (
-                  <ScrollReveal key={m.year} delay={0.1} direction={isEven ? "right" : "left"}>
-                    <div className={`relative flex flex-col md:flex-row items-start md:items-center ${isEven ? 'md:flex-row-reverse' : ''}`}>
-                      
-                      {/* Timeline Dot */}
-                      <div className="absolute left-[20px] md:left-1/2 top-3 md:top-1/2 h-3 w-3 -translate-x-[5px] md:-translate-x-1/2 md:-translate-y-1/2 rounded-full border-2 border-primary bg-accent shadow-[0_0_0_4px_rgba(10,10,10,0.05)] z-10" />
-
-                      {/* Content Box */}
-                      <div className={`ml-12 md:ml-0 md:w-1/2 ${isEven ? 'md:pr-16 text-left md:text-right' : 'md:pl-16 text-left'}`}>
-                        <div className="group relative">
-                          <div className="text-5xl md:text-7xl font-heading font-black text-accent/10 mb-2 transition-colors duration-500 group-hover:text-accent/20">{m.year}</div>
-                          <h4 className="text-xl md:text-2xl font-bold text-text mb-3">{m.title}</h4>
-                          <p className="text-muted leading-relaxed text-sm md:text-base">{m.desc}</p>
-                        </div>
-                      </div>
-
+                  <motion.div
+                    key={m.year}
+                    initial={{
+                      opacity: 0,
+                      y: isTop ? -60 : 60,
+                      scale: 0.85,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                    }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{
+                      duration: 0.6,
+                      delay: i * 0.15,
+                      ease: [0.25, 0.46, 0.45, 0.94],
+                    }}
+                    className={`relative flex flex-col items-center flex-1 ${
+                      isTop ? "flex-col" : "flex-col-reverse"
+                    }`}
+                  >
+                    {/* Card */}
+                    <div
+                      className={`glass-card p-3 md:p-4 text-center w-full max-w-[140px] md:max-w-[160px] group hover:-translate-y-1 transition-all duration-500 ${
+                        isTop ? "mb-6" : "mt-6"
+                      }`}
+                    >
+                      <p className="font-heading text-[10px] md:text-xs font-bold text-accent tracking-wider mb-1">
+                        {m.year}
+                      </p>
+                      <h4 className="font-heading text-xs md:text-sm font-semibold text-text mb-1 group-hover:text-accent transition-colors">
+                        {m.title}
+                      </h4>
+                      <p className="text-muted text-[10px] md:text-xs leading-relaxed hidden sm:block">
+                        {m.desc}
+                      </p>
                     </div>
-                  </ScrollReveal>
+
+                    {/* Connector line + dot */}
+                    <div className={`flex flex-col items-center ${isTop ? "" : "flex-col-reverse"}`}>
+                      <div className="w-[1px] h-6 bg-accent/20" />
+                      <div className="relative">
+                        <div className="w-3 h-3 rounded-full bg-accent border-2 border-primary z-10 relative" />
+                        <div className="absolute inset-0 w-3 h-3 rounded-full bg-accent/40 animate-ping" />
+                      </div>
+                    </div>
+                  </motion.div>
                 );
               })}
             </div>

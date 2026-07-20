@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { CONTACT_INFO } from "@/lib/constants";
 import {
@@ -12,7 +11,6 @@ import {
   Send,
   MessageSquare,
   Clock,
-  ArrowRight,
 } from "lucide-react";
 
 const contactCards = [
@@ -95,96 +93,47 @@ export function ContactPageContent() {
 
   return (
     <>
-      {/* ─── HERO SECTION ─── */}
-      <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <Image
-          src="/contact-hero.png"
-          alt="Contact Wed Filmer"
-          fill
-          className="object-cover"
-          priority
-          quality={90}
-        />
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#D5C8B9]" />
-
-        {/* Hero Content */}
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-white/80 uppercase tracking-[0.3em] text-sm mb-6 font-body"
-          >
-            Let&apos;s Connect
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6"
-          >
-            Contact Us
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
-          >
-            Ready to capture your special moments? Reach out and let&apos;s
-            craft something extraordinary together.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-10"
-          >
-            <a
-              href="#contact-form"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium hover:bg-white/20 transition-all duration-300 group"
-            >
-              <Send size={18} />
-              Send a Message
-              <ArrowRight
-                size={16}
-                className="group-hover:translate-x-1 transition-transform"
-              />
-            </a>
-          </motion.div>
-        </div>
-      </section>
-
       {/* ─── CONTACT INFO CARDS ─── */}
-      <section className="py-20 md:py-28 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-8 md:py-12 relative bg-primary">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(212,175,55,0.03)_0%,_transparent_60%)]" />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
+          
           {/* Section Intro */}
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <p className="text-muted uppercase tracking-[0.25em] text-sm mb-4 font-body">
-                Get in Touch
-              </p>
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-text mb-6">
-                We&apos;d Love to Hear From You
-              </h2>
-              <p className="text-muted text-lg max-w-2xl mx-auto leading-relaxed">
-                Ready to capture your special moments? Fill out the form or
-                reach us directly through any of the channels below.
-              </p>
-            </div>
-          </ScrollReveal>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-text mb-4">
+              We'd Love to Hear From You
+            </h2>
+            <p className="text-muted text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+              Ready to capture your special moments? Fill out the form or reach us directly through any of the channels below.
+            </p>
+          </motion.div>
 
-          {/* Vertical Contact Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+          {/* Compact Contact Cards — each flies in from a different direction */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
             {contactCards.map((card, i) => {
               const Icon = card.icon;
+              // Directions: top, right, bottom, left
+              const directions = [
+                { x: 0, y: -80 },   // Email — from top
+                { x: 80, y: 0 },    // Phone — from right
+                { x: 0, y: 80 },    // Location — from bottom
+                { x: -80, y: 0 },   // WhatsApp — from left
+              ];
+              const dir = directions[i] || { x: 0, y: 40 };
               return (
-                <ScrollReveal key={card.label} delay={i * 0.1}>
+                <motion.div
+                  key={card.label}
+                  initial={{ opacity: 0, x: dir.x, y: dir.y, scale: 0.9 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.6, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
                   <a
                     href={card.href}
                     target={
@@ -195,243 +144,228 @@ export function ContactPageContent() {
                     rel="noopener noreferrer"
                     className="group block h-full"
                   >
-                    <div className="glass-card p-8 h-full text-center hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
-                      {/* Hover glow */}
+                    <div className="glass-card p-6 h-full text-center hover:-translate-y-1 transition-all duration-500 relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-b from-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                      <div className="relative z-10">
-                        <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-accent/5 flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all duration-500">
-                          <Icon
-                            size={26}
-                            className="text-accent group-hover:text-white transition-colors duration-500"
-                          />
+                      
+                      <div className="relative z-10 flex flex-col items-center">
+                        <div className="w-10 h-10 mb-4 rounded-full bg-accent/5 flex items-center justify-center group-hover:bg-accent group-hover:text-primary transition-all duration-500">
+                          <Icon size={18} className="text-accent group-hover:text-primary transition-colors duration-500" />
                         </div>
-                        <p className="text-muted text-xs uppercase tracking-[0.2em] mb-3">
+                        <p className="text-muted text-[10px] uppercase tracking-[0.2em] mb-2">
                           {card.label}
                         </p>
-                        <p className="font-heading text-lg font-bold text-text mb-2 group-hover:text-accent transition-colors duration-300">
+                        <p className="font-heading text-sm md:text-base font-bold text-text mb-1 group-hover:text-accent transition-colors duration-300">
                           {card.value}
                         </p>
-                        <p className="text-muted text-sm">{card.description}</p>
+                        <p className="text-muted/60 text-xs">{card.description}</p>
                       </div>
                     </div>
                   </a>
-                </ScrollReveal>
+                </motion.div>
               );
             })}
           </div>
 
           {/* ─── FORM + INFO SPLIT ─── */}
-          <div
-            id="contact-form"
-            className="grid lg:grid-cols-5 gap-8 lg:gap-16 scroll-mt-24"
-          >
-            {/* Left – Info Panel */}
-            <div className="lg:col-span-2">
-              <ScrollReveal>
-                <div className="sticky top-28">
-                  <p className="text-muted uppercase tracking-[0.25em] text-sm mb-4 font-body">
-                    Send a Message
-                  </p>
-                  <h3 className="font-heading text-3xl md:text-4xl font-bold text-text mb-6">
-                    Let&apos;s Create
-                    <br />
-                    Magic Together
-                  </h3>
-                  <p className="text-muted leading-relaxed mb-10">
-                    Share details about your event and we&apos;ll get back to
-                    you within 24 hours with a personalised proposal. Every
-                    celebration deserves to be captured beautifully.
-                  </p>
+          <div id="contact-form" className="grid lg:grid-cols-5 gap-8 lg:gap-12 scroll-mt-24">
+            
+            {/* Left – Info Panel — slides in from left */}
+            <motion.div
+              className="lg:col-span-2"
+              initial={{ opacity: 0, x: -60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <div className="sticky top-28">
+                <h3 className="font-heading text-2xl md:text-3xl font-bold text-text mb-4">
+                  Let's Create <br /> Magic Together
+                </h3>
+                <p className="text-muted text-sm leading-relaxed mb-8">
+                  Share details about your event and we'll get back to you within 24 hours with a personalised proposal. Every celebration deserves to be captured beautifully.
+                </p>
 
-                  {/* Quick details */}
-                  <div className="space-y-5">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-accent/5 flex items-center justify-center flex-shrink-0">
-                        <Clock size={18} className="text-accent" />
-                      </div>
-                      <div>
-                        <p className="text-text font-medium text-sm">
-                          Response Time
-                        </p>
-                        <p className="text-muted text-sm">
-                          Within 24 hours, guaranteed
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-accent/5 flex items-center justify-center flex-shrink-0">
-                        <MapPin size={18} className="text-accent" />
-                      </div>
-                      <div>
-                        <p className="text-text font-medium text-sm">
-                          Coverage
-                        </p>
-                        <p className="text-muted text-sm">
-                          Pan-India & International Destinations
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* WhatsApp CTA */}
-                  <a
-                    href={CONTACT_INFO.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-10 inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#25D366] text-white font-semibold hover:bg-[#20BD5A] transition-all duration-300 hover:shadow-[0_10px_30px_-10px_rgba(37,211,102,0.4)] hover:-translate-y-0.5"
+                <div className="space-y-4">
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="flex items-center gap-3"
                   >
-                    <MessageSquare size={20} />
-                    Chat on WhatsApp
-                  </a>
+                    <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                      <Clock size={14} className="text-accent" />
+                    </div>
+                    <div>
+                      <p className="text-text font-medium text-sm">Response Time</p>
+                      <p className="text-muted text-xs">Within 24 hours, guaranteed</p>
+                    </div>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.35 }}
+                    className="flex items-center gap-3"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                      <MapPin size={14} className="text-accent" />
+                    </div>
+                    <div>
+                      <p className="text-text font-medium text-sm">Coverage</p>
+                      <p className="text-muted text-xs">Pan-India & International Destinations</p>
+                    </div>
+                  </motion.div>
                 </div>
-              </ScrollReveal>
-            </div>
+
+                <motion.a
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.45 }}
+                  href={CONTACT_INFO.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#25D366] text-primary font-semibold text-sm hover:bg-[#20BD5A] transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+                >
+                  <MessageSquare size={16} />
+                  Chat on WhatsApp
+                </motion.a>
+              </div>
+            </motion.div>
 
             {/* Right – Contact Form */}
-            <div className="lg:col-span-3">
-              <ScrollReveal delay={0.15}>
+            <motion.div
+              className="lg:col-span-3"
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
                 <form
                   onSubmit={handleSubmit}
-                  className="glass-card !p-8 md:!p-12 relative overflow-hidden"
+                  className="glass-card !p-6 md:!p-8 relative overflow-hidden"
                 >
-                  {/* Success Overlay */}
-                  {isSubmitted && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-primary/95 backdrop-blur-sm"
-                    >
-                      <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center mb-6">
-                        <Send size={32} className="text-green-600" />
-                      </div>
-                      <h4 className="font-heading text-2xl font-bold text-text mb-2">
-                        Message Sent!
-                      </h4>
-                      <p className="text-muted text-center max-w-sm">
-                        Thank you for reaching out. We&apos;ll get back to you
-                        within 24 hours.
-                      </p>
-                    </motion.div>
-                  )}
-
-                  <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                    <div>
-                      <label
-                        htmlFor="contact-name"
-                        className="block text-xs font-medium text-muted uppercase tracking-wider mb-3"
+                  <AnimatePresence>
+                    {isSubmitted && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-primary/95 backdrop-blur-sm rounded-[2rem]"
                       >
+                        <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
+                          <Send size={24} className="text-green-500" />
+                        </div>
+                        <h4 className="font-heading text-xl font-bold text-text mb-2">
+                          Message Sent!
+                        </h4>
+                        <p className="text-muted text-sm text-center max-w-[250px]">
+                          Thank you for reaching out. We'll get back to you within 24 hours.
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <div className="grid sm:grid-cols-2 gap-5 mb-5">
+                    <div>
+                      <label htmlFor="name" className="block text-[10px] font-medium text-muted uppercase tracking-wider mb-2">
                         Your Name *
                       </label>
                       <input
                         type="text"
-                        id="contact-name"
+                        id="name"
                         name="name"
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-0 py-3 bg-transparent border-0 border-b-2 border-accent/10 text-text placeholder:text-muted/40 focus:outline-none focus:border-accent transition-colors duration-300 text-base"
+                        className="w-full px-0 py-2 bg-transparent border-0 border-b border-accent/20 text-text text-sm placeholder:text-muted/30 focus:outline-none focus:border-accent transition-colors"
                         placeholder="John Doe"
                       />
                     </div>
                     <div>
-                      <label
-                        htmlFor="contact-email"
-                        className="block text-xs font-medium text-muted uppercase tracking-wider mb-3"
-                      >
+                      <label htmlFor="email" className="block text-[10px] font-medium text-muted uppercase tracking-wider mb-2">
                         Email Address *
                       </label>
                       <input
                         type="email"
-                        id="contact-email"
+                        id="email"
                         name="email"
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-0 py-3 bg-transparent border-0 border-b-2 border-accent/10 text-text placeholder:text-muted/40 focus:outline-none focus:border-accent transition-colors duration-300 text-base"
+                        className="w-full px-0 py-2 bg-transparent border-0 border-b border-accent/20 text-text text-sm placeholder:text-muted/30 focus:outline-none focus:border-accent transition-colors"
                         placeholder="john@example.com"
                       />
                     </div>
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-6 mb-6">
+                  <div className="grid sm:grid-cols-2 gap-5 mb-5">
                     <div>
-                      <label
-                        htmlFor="contact-phone"
-                        className="block text-xs font-medium text-muted uppercase tracking-wider mb-3"
-                      >
+                      <label htmlFor="phone" className="block text-[10px] font-medium text-muted uppercase tracking-wider mb-2">
                         Phone Number *
                       </label>
                       <input
                         type="tel"
-                        id="contact-phone"
+                        id="phone"
                         name="phone"
                         required
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-0 py-3 bg-transparent border-0 border-b-2 border-accent/10 text-text placeholder:text-muted/40 focus:outline-none focus:border-accent transition-colors duration-300 text-base"
+                        className="w-full px-0 py-2 bg-transparent border-0 border-b border-accent/20 text-text text-sm placeholder:text-muted/30 focus:outline-none focus:border-accent transition-colors"
                         placeholder="+91 98765 43210"
                       />
                     </div>
                     <div>
-                      <label
-                        htmlFor="contact-eventDate"
-                        className="block text-xs font-medium text-muted uppercase tracking-wider mb-3"
-                      >
+                      <label htmlFor="eventDate" className="block text-[10px] font-medium text-muted uppercase tracking-wider mb-2">
                         Event Date
                       </label>
                       <input
                         type="date"
-                        id="contact-eventDate"
+                        id="eventDate"
                         name="eventDate"
                         value={formData.eventDate}
                         onChange={handleChange}
-                        className="w-full px-0 py-3 bg-transparent border-0 border-b-2 border-accent/10 text-text placeholder:text-muted/40 focus:outline-none focus:border-accent transition-colors duration-300 text-base"
+                        className="w-full px-0 py-2 bg-transparent border-0 border-b border-accent/20 text-text text-sm placeholder:text-muted/30 focus:outline-none focus:border-accent transition-colors [color-scheme:dark]"
                       />
                     </div>
                   </div>
 
                   <div className="mb-8">
-                    <label
-                      htmlFor="contact-message"
-                      className="block text-xs font-medium text-muted uppercase tracking-wider mb-3"
-                    >
+                    <label htmlFor="message" className="block text-[10px] font-medium text-muted uppercase tracking-wider mb-2">
                       Tell Us About Your Event *
                     </label>
                     <textarea
-                      id="contact-message"
+                      id="message"
                       name="message"
                       required
                       value={formData.message}
                       onChange={handleChange}
-                      rows={5}
-                      className="w-full px-0 py-3 bg-transparent border-0 border-b-2 border-accent/10 text-text placeholder:text-muted/40 focus:outline-none focus:border-accent transition-colors duration-300 resize-none text-base"
-                      placeholder="Share details about your event, date, location, and any specific requirements..."
+                      rows={4}
+                      className="w-full px-0 py-2 bg-transparent border-0 border-b border-accent/20 text-text text-sm placeholder:text-muted/30 focus:outline-none focus:border-accent transition-colors resize-none"
+                      placeholder="Share details about your event, date, location..."
                     />
                   </div>
 
-                  <motion.button
+                  <button
                     type="submit"
                     disabled={isSubmitting}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-accent text-white font-semibold hover:bg-accent-light transition-all duration-300 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed text-base"
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-accent text-primary font-semibold text-sm hover:bg-accent/90 transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0"
                   >
                     {isSubmitting ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-[1.5px] border-primary/30 border-t-primary rounded-full animate-spin" />
                         Sending...
                       </>
                     ) : (
                       <>
-                        <Send size={18} />
+                        <Send size={16} />
                         Send Message
                       </>
                     )}
-                  </motion.button>
+                  </button>
                 </form>
-              </ScrollReveal>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

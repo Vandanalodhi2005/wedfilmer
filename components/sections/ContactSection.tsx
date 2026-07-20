@@ -5,6 +5,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import Tilt from "react-parallax-tilt";
 import { CONTACT_INFO } from "@/lib/constants";
 import { Mail, Phone, MapPin, Send, MessageSquare } from "lucide-react";
 
@@ -47,17 +48,20 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 relative" aria-label="Contact us">
+    <section id="contact" className="py-10 md:py-12 relative" aria-label="Contact us">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(10,10,10,0.04)_0%,_transparent_70%)]" />
+      <div 
+        className="absolute inset-0 bg-[url('/bg-contact.jpg')] bg-fixed bg-cover bg-center" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-7xl mx-auto px-1 sm:px-2 lg:px-4 relative">
         <SectionHeading title="Let's Create Magic Together" subtitle="Contact Us" />
 
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Contact Info */}
-          <div className="lg:col-span-2 space-y-6">
-            <ScrollReveal>
-              <div className="glass-card !p-8">
+          <div className="lg:col-span-2 space-y-2 text-white">
+            <ScrollReveal direction="left">
+              <Tilt tiltMaxAngleX={3} tiltMaxAngleY={3} glareEnable={true} glareMaxOpacity={0.1} scale={1.02} className="h-full rounded-2xl">
+                <div className="glass-card !p-8 h-full">
                 <h3 className="font-heading text-2xl font-bold text-text mb-6">
                   Get in Touch
                 </h3>
@@ -126,13 +130,15 @@ export function ContactSection() {
                   Chat on WhatsApp
                 </a>
               </div>
+              </Tilt>
             </ScrollReveal>
           </div>
 
           {/* Contact Form */}
           <div className="lg:col-span-3">
-            <ScrollReveal delay={0.1}>
-              <form onSubmit={handleSubmit} className="glass-card !p-8 md:!p-10">
+            <ScrollReveal direction="3d-rotate-in" delay={0.2}>
+              <Tilt tiltMaxAngleX={2} tiltMaxAngleY={2} glareEnable={true} glareMaxOpacity={0.05} className="h-full rounded-2xl">
+                <form onSubmit={handleSubmit} className="glass-card !p-8 md:!p-10 relative overflow-hidden h-full">
                 <div className="grid sm:grid-cols-2 gap-6 mb-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-muted mb-2">
@@ -220,9 +226,11 @@ export function ContactSection() {
                   )}
                 </motion.button>
               </form>
+              </Tilt>
             </ScrollReveal>
           </div>
         </div>
+        <div/>
       </div>
     </section>
   );

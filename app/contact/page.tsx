@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { ContactPageContent } from "@/components/sections/ContactPageContent";
 import { Footer } from "@/components/Footer";
+import { PageHero } from "@/components/ui/PageHero";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,6 +20,11 @@ export default function ContactPage() {
     <>
       <Navbar />
       <main>
+        <PageHero 
+          title="Contact Us" 
+          subtitle="Let's Connect" 
+          imageSrc="https://suvoweddings.com/pre-wedding-garden-couple-siliguri-suvo-weddings.jpg"
+        />
         <ContactPageContent />
       </main>
       <Footer />

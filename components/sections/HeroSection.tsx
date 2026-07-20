@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Play, Calendar } from "lucide-react";
+import Tilt from "react-parallax-tilt";
 
 export function HeroSection() {
   return (
@@ -38,7 +39,7 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-        <div className="max-w-2xl text-left">
+        <Tilt tiltMaxAngleX={4} tiltMaxAngleY={4} perspective={1000} trackOnWindow={true} gyroscope={true} className="max-w-2xl text-left transform-style-3d">
           {/* Premium Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -107,7 +108,7 @@ export function HeroSection() {
               View Our Work
             </Link>
           </motion.div>
-        </div>
+        </Tilt>
       </div>
 
       {/* Scroll indicator */}

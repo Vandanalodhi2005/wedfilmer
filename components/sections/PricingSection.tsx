@@ -2,6 +2,7 @@
 
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import Tilt from "react-parallax-tilt";
 import { PRICING_PLANS } from "@/lib/constants";
 import { Check, ArrowRight } from "lucide-react";
 
@@ -15,13 +16,10 @@ export function PricingSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
           {PRICING_PLANS.map((plan, i) => (
-            <ScrollReveal key={plan.name} delay={i * 0.1}>
+            <ScrollReveal key={plan.name} delay={i * 0.1} direction="3d-flip-up">
+              <Tilt tiltMaxAngleX={4} tiltMaxAngleY={4} glareEnable={true} glareMaxOpacity={0.1} scale={1.03} className={`relative h-full rounded-2xl transition-all duration-500 ${plan.highlighted ? "scale-100 md:scale-105 z-10" : ""}`}>
               <div
-                className={`relative h-full rounded-2xl overflow-hidden transition-all duration-500 ${
-                  plan.highlighted
-                    ? "scale-100 md:scale-105 z-10"
-                    : ""
-                }`}
+                className="relative h-full rounded-2xl overflow-hidden"
               >
                 {/* Featured badge */}
                 {plan.badge && (
@@ -82,6 +80,7 @@ export function PricingSection() {
                   </a>
                 </div>
               </div>
+              </Tilt>
             </ScrollReveal>
           ))}
         </div>

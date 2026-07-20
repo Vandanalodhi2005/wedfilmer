@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { TrustSection } from "@/components/sections/TrustSection";
+import { BidirectionalMarquee } from "@/components/sections/BidirectionalMarquee";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { PortfolioSection } from "@/components/sections/PortfolioSection";
@@ -22,12 +23,13 @@ export default function Home() {
       <main>
         <HeroSection />
         <TrustSection />
+        <BidirectionalMarquee />
         <AboutSection />
         <ServicesSection />
         <PortfolioSection />
         <WhyChooseUsSection />
         <TestimonialsSection />
-        <ProcessSection />
+        {/* <ProcessSection /> */}
         <FAQSection />
         <ContactSection />
       </main>

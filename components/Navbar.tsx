@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 
 const NAV_LINKS = [
@@ -18,6 +19,7 @@ const NAV_LINKS = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { isScrolled } = useScrollPosition();
+  const pathname = usePathname();
 
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
   const closeMenu = useCallback(() => setIsOpen(false), []);
@@ -50,20 +52,37 @@ export function Navbar() {
 
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-8">
-              {NAV_LINKS.map((link) => (
+              {NAV_LINKS.map((link) => {
+                const isActive = pathname === link.href;
+                return (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={`relative text-base font-medium transition-colors duration-300 group ${
-                    isScrolled ? "text-text hover:text-accent-light" : "text-white/90 hover:text-white"
-                  }`}
+                    isScrolled ? "text-text hover:text-accent" : "text-white/90 hover:text-white"
+                  } ${isActive ? (isScrolled ? "text-accent" : "text-white") : ""}`}
                 >
                   {link.label}
-                  <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                    isScrolled ? "bg-accent" : "bg-white"
-                  }`} />
+                  
+                  {/* Hover Underline */}
+                  {!isActive && (
+                    <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                      isScrolled ? "bg-accent" : "bg-white"
+                    }`} />
+                  )}
+
+                  {/* Active Underline */}
+                  {isActive && (
+                    <motion.span
+                      layoutId="navbar-active-underline"
+                      className={`absolute -bottom-1 left-0 right-0 h-0.5 ${
+                        isScrolled ? "bg-accent" : "bg-white"
+                      }`}
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </Link>
-              ))}
+              )})}
             </div>
 
             {/* CTA + Mobile Toggle */}
@@ -135,7 +154,9 @@ export function Navbar() {
 
                 <nav className="flex-1 px-5 py-6 sm:px-6" aria-label="Mobile navigation">
                   <div className="flex flex-col gap-1">
-                    {NAV_LINKS.map((link, i) => (
+                    {NAV_LINKS.map((link, i) => {
+                      const isActive = pathname === link.href;
+                      return (
                       <motion.div
                         key={link.href}
                         initial={{ opacity: 0, x: 30 }}
@@ -145,12 +166,20 @@ export function Navbar() {
                         <Link
                           href={link.href}
                           onClick={closeMenu}
-                          className="block rounded-xl px-4 py-3 text-base font-medium text-text transition-all duration-300 hover:bg-black/5 hover:text-accent"
+                          className={`block rounded-xl px-4 py-3 text-base font-medium transition-all duration-300 hover:bg-black/5 hover:text-accent relative ${
+                            isActive ? "text-accent bg-black/5" : "text-text"
+                          }`}
                         >
                           {link.label}
+                          {isActive && (
+                            <motion.span
+                              layoutId="mobile-nav-active"
+                              className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-accent rounded-r-md"
+                            />
+                          )}
                         </Link>
                       </motion.div>
-                    ))}
+                    )})}
                   </div>
                 </nav>
 
