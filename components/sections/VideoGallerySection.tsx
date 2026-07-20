@@ -52,12 +52,12 @@ export function VideoGallerySection() {
   };
 
   return (
-    <section className="py-20 md:py-32 bg-white">
+    <section className="py-20 md:py-32 bg-primary">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <p className="text-sm uppercase tracking-[0.4em] text-gray-500 mb-4">Our Videos</p>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Video Highlights</h2>
+            <p className="text-sm uppercase tracking-[0.4em] text-muted mb-4">Our Videos</p>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading text-text">Video Highlights</h2>
           </div>
         </ScrollReveal>
 
@@ -71,7 +71,7 @@ export function VideoGallerySection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  className="overflow-hidden rounded-xl border border-gray-100 bg-gray-50 shadow-sm"
+                  className="overflow-hidden rounded-xl glass-card group transition-transform duration-300 hover:-translate-y-1"
                   onMouseEnter={() => playVideo(video._id)}
                   onMouseLeave={() => pauseVideo(video._id)}
                 >
@@ -92,7 +92,7 @@ export function VideoGallerySection() {
                   </div>
                   {/* Video Info */}
                   <div className="p-6">
-                    <p className="text-gray-500 text-sm capitalize">{video.category}</p>
+                    <p className="text-muted text-sm capitalize">{video.category}</p>
                   </div>
                 </motion.div>
               ))}
@@ -103,7 +103,7 @@ export function VideoGallerySection() {
               <div className="text-center mt-12">
                 <button
                   onClick={() => setShowAllVideos(!showAllVideos)}
-                  className="px-8 py-3 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
+                  className="px-8 py-3 bg-accent text-white rounded-full font-medium hover:bg-accent-light transition-colors"
                 >
                   {showAllVideos ? "Show Less" : "Show More"}
                 </button>
@@ -112,9 +112,9 @@ export function VideoGallerySection() {
           </>
         ) : (
           <ScrollReveal>
-            <div className="text-center py-24 bg-gray-50 rounded-2xl border border-gray-200">
-              <p className="text-gray-500 text-lg">No videos yet</p>
-              <p className="text-gray-400 text-sm mt-2">Check back soon for our latest video highlights</p>
+            <div className="text-center py-24 glass-card rounded-2xl">
+              <p className="text-muted text-lg">No videos yet</p>
+              <p className="text-muted/70 text-sm mt-2">Check back soon for our latest video highlights</p>
             </div>
           </ScrollReveal>
         )}

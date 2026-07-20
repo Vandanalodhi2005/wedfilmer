@@ -3,17 +3,17 @@
 
 /* ── Custom Theme Tokens ── */
 @theme inline {
-  --color-primary: #B8A796;
-  --color-secondary: #FAFAFA;
-  --color-accent: #000000;
-  --color-accent-light: #1A1A1A;
+  --color-primary: #D5C8B9; /* A lighter, elegant beige background */
+  --color-secondary: #B8A796; /* The original requested color as secondary/accent */
+  --color-accent: #0A0A0A; /* Crisp black for elegant contrast */
+  --color-accent-light: #2A2A2A;
   --color-accent-dark: #000000;
-  --color-text: #0A0A0A;
-  --color-muted: #000000;
-  --color-card: rgba(255, 255, 255, 0.9);
-  --color-card-border: rgba(0, 0, 0, 0.1);
-  --color-glass: rgba(255, 255, 255, 0.95);
-  --color-glass-border: rgba(0, 0, 0, 0.08);
+  --color-text: #0A0A0A; /* Rich black for readability */
+  --color-muted: #4A4A4A; /* Dark gray for subtle hierarchy */
+  --color-card: rgba(255, 255, 255, 0.45); /* Elegant frosted glass */
+  --color-card-border: rgba(255, 255, 255, 0.6);
+  --color-glass: rgba(255, 255, 255, 0.65);
+  --color-glass-border: rgba(255, 255, 255, 0.5);
 
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -22,7 +22,7 @@
   --animate-fade-in: fade-in 0.6s ease-out both;
   --animate-shimmer: shimmer 2.5s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-gold: pulse-black 2s ease-in-out infinite;
+  --animate-pulse-gold: pulse-accent 2s ease-in-out infinite;
 }
 
 /* ── Keyframes ── */
@@ -46,9 +46,9 @@
   50% { transform: translateY(-20px); }
 }
 
-@keyframes pulse-black {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3); }
-  50% { box-shadow: 0 0 0 12px rgba(0, 0, 0, 0); }
+@keyframes pulse-accent {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(10, 10, 10, 0.15); }
+  50% { box-shadow: 0 0 0 12px rgba(10, 10, 10, 0); }
 }
 
 /* ── Base Styles ── */
@@ -86,8 +86,8 @@ body {
 
 /* ── Selection ── */
 ::selection {
-  background: rgba(0, 0, 0, 0.1);
-  color: #000000;
+  background: rgba(10, 10, 10, 0.15);
+  color: #0A0A0A;
 }
 
 /* ── Glass Utilities ── */
@@ -111,22 +111,23 @@ body {
 }
 
 .glass-card-hover:hover {
-  border-color: rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.9);
   box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.08),
-    0 20px 60px rgba(0, 0, 0, 0.05);
+    0 10px 40px rgba(0, 0, 0, 0.05),
+    0 20px 60px rgba(0, 0, 0, 0.03),
+    inset 0 0 20px rgba(255, 255, 255, 0.5);
   transform: translateY(-4px);
 }
 
-/* ── Black shimmer text ── */
+/* ── Dark shimmer text ── */
 .text-shimmer {
   background: linear-gradient(
     110deg,
-    #000000 0%,
-    #333333 35%,
-    #000000 50%,
-    #1A1A1A 65%,
-    #000000 100%
+    #0A0A0A 0%,
+    #4A4A4A 35%,
+    #0A0A0A 50%,
+    #2A2A2A 65%,
+    #0A0A0A 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -135,7 +136,7 @@ body {
   animation: shimmer 3s linear infinite;
 }
 
-/* ── Black gradient border ── */
+/* ── Accent gradient border ── */
 .gold-border {
   position: relative;
 }
@@ -146,7 +147,7 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, #000000, transparent 50%, #000000);
+  background: linear-gradient(135deg, rgba(10,10,10,0.8), transparent 50%, rgba(10,10,10,0.8));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -160,7 +161,7 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(0, 0, 0, 0.15),
+    rgba(10, 10, 10, 0.1),
     transparent
   );
 }

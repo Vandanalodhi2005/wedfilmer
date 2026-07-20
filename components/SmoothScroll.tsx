@@ -29,11 +29,10 @@ export function SmoothScroll() {
             e.preventDefault();
             
             const targetPosition = targetElement.offsetTop - 80;
-            
-            gsap.to(window, {
-              duration: 1.2,
-              scrollTo: targetPosition,
-              ease: "power3.inOut",
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: "smooth",
             });
           }
         }

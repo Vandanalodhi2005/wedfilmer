@@ -48,7 +48,7 @@ export function ContactSection() {
 
   return (
     <section id="contact" className="py-20 md:py-32 relative" aria-label="Contact us">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.06)_0%,_transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(10,10,10,0.04)_0%,_transparent_70%)]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeading title="Let's Create Magic Together" subtitle="Contact Us" />
@@ -205,7 +205,7 @@ export function ContactSection() {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-accent text-primary font-semibold hover:bg-accent-light transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,175,55,0.3)] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-accent text-white font-semibold hover:bg-accent-light transition-all duration-300 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>

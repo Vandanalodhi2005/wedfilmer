@@ -28,47 +28,43 @@ export function TestimonialsSection() {
         <SectionHeading title="What Our Clients Say" subtitle="Testimonials" />
 
         <ScrollReveal>
-          <div className="max-w-4xl mx-auto relative">
-            {/* Main card */}
-            <div className="glass-card p-8 md:p-12 lg:p-16 relative overflow-hidden">
-              {/* Quote icon */}
-              <div className="absolute top-6 right-6 md:top-8 md:right-8 opacity-10">
-                <Quote size={80} className="text-accent" />
-              </div>
+          <div className="max-w-5xl mx-auto relative px-4 mt-12 md:mt-20">
+            {/* Large Quote Mark Background */}
+            <div className="absolute -top-10 -left-4 md:-top-20 md:-left-12 opacity-[0.04] pointer-events-none">
+              <Quote size={200} className="text-accent" />
+            </div>
 
+            <div className="relative min-h-[400px] flex items-center">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={current}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4 }}
-                  className="relative z-10"
+                  initial={{ opacity: 0, x: 50, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, x: -50, filter: "blur(10px)" }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full"
                 >
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-6">
+                  <div className="flex gap-2 mb-8 justify-center md:justify-start">
                     {Array.from({ length: t.rating }).map((_, i) => (
                       <Star
                         key={i}
-                        size={18}
+                        size={20}
                         className="text-accent fill-accent"
                       />
                     ))}
                   </div>
 
-                  {/* Quote */}
-                  <blockquote className="text-lg md:text-xl lg:text-2xl text-text/90 leading-relaxed font-light italic mb-8">
+                  <blockquote className="text-2xl md:text-4xl lg:text-5xl font-heading text-text leading-tight md:leading-tight mb-12 text-center md:text-left">
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
 
-                  {/* Author */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center text-primary font-bold text-lg">
+                  <div className="flex flex-col md:flex-row items-center gap-6 justify-center md:justify-start">
+                    <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-white font-heading font-bold text-xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.2)]">
                       {t.initials}
                     </div>
-                    <div>
-                      <p className="text-text font-semibold text-base">{t.name}</p>
-                      <p className="text-accent text-sm">{t.role}</p>
+                    <div className="text-center md:text-left">
+                      <p className="text-text font-bold text-lg mb-1">{t.name}</p>
+                      <p className="text-muted text-sm uppercase tracking-wider">{t.role}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -76,24 +72,24 @@ export function TestimonialsSection() {
             </div>
 
             {/* Navigation */}
-            <div className="flex items-center justify-center gap-4 mt-8">
+            <div className="flex items-center justify-center md:justify-start gap-4 mt-12">
               <button
                 onClick={prev}
-                className="w-12 h-12 rounded-full glass flex items-center justify-center text-muted hover:text-accent hover:border-accent/30 transition-all duration-300"
+                className="w-12 h-12 rounded-full border border-accent/20 flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-all duration-300"
                 aria-label="Previous testimonial"
               >
                 <ChevronLeft size={20} />
               </button>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 px-4">
                 {TESTIMONIALS.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setCurrent(i)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
+                    className={`h-1.5 rounded-full transition-all duration-500 ${
                       i === current
                         ? "w-8 bg-accent"
-                        : "w-2 bg-muted/30 hover:bg-muted/50"
+                        : "w-2 bg-accent/20 hover:bg-accent/40"
                     }`}
                     aria-label={`Go to testimonial ${i + 1}`}
                   />
@@ -102,7 +98,7 @@ export function TestimonialsSection() {
 
               <button
                 onClick={next}
-                className="w-12 h-12 rounded-full glass flex items-center justify-center text-muted hover:text-accent hover:border-accent/30 transition-all duration-300"
+                className="w-12 h-12 rounded-full border border-accent/20 flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-all duration-300"
                 aria-label="Next testimonial"
               >
                 <ChevronRight size={20} />

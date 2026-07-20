@@ -19,28 +19,38 @@ export function FAQSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title="Frequently Asked Questions" subtitle="FAQ" />
 
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto">
           {FAQ_ITEMS.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
               <ScrollReveal key={i} delay={i * 0.05}>
-                <div className="glass-card !p-0 overflow-hidden">
+                <div className="border-b border-accent/10 overflow-hidden last:border-none">
                   <button
                     onClick={() => toggleFAQ(i)}
-                    className="w-full px-6 md:px-8 py-5 md:py-6 flex items-start gap-4 text-left hover:bg-accent/5 transition-colors duration-300"
+                    className="w-full py-6 md:py-8 flex items-center justify-between text-left group transition-colors duration-300"
                     aria-expanded={isOpen}
                   >
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center mt-0.5">
-                      {isOpen ? (
-                        <Minus size={16} className="text-accent" />
-                      ) : (
-                        <Plus size={16} className="text-accent" />
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-heading text-lg md:text-xl font-bold text-text mb-1">
-                        {faq.question}
-                      </h3>
+                    <h3
+                      className={`font-heading text-xl md:text-2xl font-bold pr-8 transition-colors duration-300 ${
+                        isOpen ? "text-accent" : "text-text group-hover:text-accent"
+                      }`}
+                    >
+                      {faq.question}
+                    </h3>
+                    <div
+                      className={`flex-shrink-0 w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                        isOpen
+                          ? "bg-accent border-accent text-white"
+                          : "border-accent/20 text-accent group-hover:bg-accent group-hover:border-accent group-hover:text-white"
+                      }`}
+                    >
+                      <motion.div
+                        initial={false}
+                        animate={{ rotate: isOpen ? 180 : 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                      >
+                        {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                      </motion.div>
                     </div>
                   </button>
 
@@ -52,8 +62,8 @@ export function FAQSection() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                       >
-                        <div className="px-6 md:px-8 pb-5 md:pb-6 pl-16 md:pl-20">
-                          <p className="text-muted text-sm md:text-base leading-relaxed">
+                        <div className="pb-8 pr-12 md:pr-24">
+                          <p className="text-muted text-base md:text-lg leading-relaxed">
                             {faq.answer}
                           </p>
                         </div>
@@ -68,11 +78,11 @@ export function FAQSection() {
 
         {/* Contact CTA */}
         <ScrollReveal delay={FAQ_ITEMS.length * 0.05 + 0.2}>
-          <div className="mt-12 text-center">
+          <div className="mt-16 text-center">
             <p className="text-muted mb-6">Still have questions? We&apos;re here to help!</p>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-accent text-primary font-semibold hover:bg-accent-light transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+              className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-accent text-primary font-semibold hover:bg-accent-light transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
               Get in Touch
             </a>

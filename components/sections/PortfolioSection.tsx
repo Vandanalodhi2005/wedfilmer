@@ -47,21 +47,17 @@ export function PortfolioSection() {
   return (
     <section
       id="portfolio"
-      className="relative overflow-hidden py-20 md:py-32"
-      style={{
-        backgroundImage:
-          "linear-gradient(135deg, rgba(248,250,252,0.95) 0%, rgba(238,242,255,0.95) 45%, rgba(253,242,248,0.95) 100%)"
-      }}
+      className="relative overflow-hidden py-20 md:py-32 bg-primary"
       aria-label="Portfolio gallery"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.16),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(236,72,153,0.16),_transparent_35%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.1),_transparent_40%),radial-gradient(circle_at_bottom_right,_rgba(0,0,0,0.05),_transparent_40%)]" />
 
       <div className="relative mx-auto max-w-7xl px-6 md:px-8">
         <ScrollReveal>
           <div className="mb-16 text-center">
-            <p className="mb-4 text-sm uppercase tracking-[0.4em] text-gray-500">Our Portfolio</p>
-            <h2 className="text-4xl font-bold text-gray-900 md:text-5xl">Featured Work</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-gray-600">
+            <p className="mb-4 text-sm uppercase tracking-[0.4em] text-muted">Our Portfolio</p>
+            <h2 className="text-4xl font-bold font-heading text-text md:text-5xl">Featured Work</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-muted">
               A polished collection of timeless moments, presented in their true form and emotion.
             </p>
           </div>
@@ -75,8 +71,8 @@ export function PortfolioSection() {
                 onClick={() => setActiveCategory(cat)}
                 className={`rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-[0.25em] transition-all duration-300 ${
                   activeCategory === cat
-                    ? "bg-slate-900 text-white shadow-[0_16px_40px_-18px_rgba(15,23,42,0.8)]"
-                    : "border border-white/70 bg-white/80 text-slate-700 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.45)] backdrop-blur hover:-translate-y-0.5 hover:bg-white"
+                    ? "bg-accent text-white shadow-lg shadow-black/20"
+                    : "glass-card text-muted hover:-translate-y-0.5 hover:text-text hover:bg-white/60"
                 }`}
               >
                 {cat}
@@ -97,7 +93,7 @@ export function PortfolioSection() {
                   transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: idx * 0.06 }}
                   className="group mb-5 break-inside-avoid"
                 >
-                  <div className="overflow-hidden rounded-[1.5rem] bg-white/70 shadow-[0_25px_80px_-30px_rgba(15,23,42,0.35)] backdrop-blur-sm transition-transform duration-500 group-hover:-translate-y-1">
+                  <div className="overflow-hidden rounded-[1.5rem] glass-card transition-transform duration-500 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-black/10">
                     <img
                       src={item.url}
                       alt={`${item.category} portfolio image`}
@@ -113,7 +109,7 @@ export function PortfolioSection() {
               <div className="mt-12 text-center">
                 <button
                   onClick={() => setShowAllImages(!showAllImages)}
-                  className="rounded-full bg-gray-900 px-8 py-3 font-medium text-white transition-colors hover:bg-gray-800"
+                  className="rounded-full bg-accent px-8 py-3 font-medium text-white transition-colors hover:bg-accent-light"
                 >
                   {showAllImages ? "Show Less" : "Show More"}
                 </button>
@@ -121,9 +117,9 @@ export function PortfolioSection() {
             )}
           </>
         ) : (
-          <div className="rounded-3xl border border-gray-200 bg-white/80 py-24 text-center shadow-sm backdrop-blur">
-            <p className="text-lg text-gray-500">No images yet</p>
-            <p className="mt-2 text-sm text-gray-400">Check back soon for our latest work</p>
+          <div className="rounded-3xl glass-card py-24 text-center">
+            <p className="text-lg text-muted">No images yet</p>
+            <p className="mt-2 text-sm text-muted/70">Check back soon for our latest work</p>
           </div>
         )}
       </div>

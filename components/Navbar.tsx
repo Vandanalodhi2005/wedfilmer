@@ -28,10 +28,10 @@ export function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg shadow-black/5"
-            : "bg-transparent"
+            ? "glass-card border-white/20 shadow-lg shadow-black/5"
+            : "bg-transparent border-transparent"
         }`}
       >
         <nav className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8" aria-label="Main navigation">
@@ -42,7 +42,7 @@ export function Navbar() {
                   src="/logo-white.png"
                   alt="Wed Filmer"
                   fill
-                  className="object-contain"
+                  className="object-contain transition-all duration-300"
                   priority
                 />
               </div>
@@ -54,10 +54,14 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative text-base font-medium text-gray-700 hover:text-black transition-colors duration-300 group"
+                  className={`relative text-base font-medium transition-colors duration-300 group ${
+                    isScrolled ? "text-text hover:text-accent-light" : "text-white/90 hover:text-white"
+                  }`}
                 >
                   {link.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full" />
+                  <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                    isScrolled ? "bg-accent" : "bg-white"
+                  }`} />
                 </Link>
               ))}
             </div>
@@ -66,13 +70,21 @@ export function Navbar() {
             <div className="flex items-center gap-2 sm:gap-4">
               <Link
                 href="/contact"
-                className="hidden rounded-full bg-black px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-gray-800 sm:inline-flex"
+                className={`hidden rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 sm:inline-flex ${
+                  isScrolled
+                    ? "bg-accent text-white hover:bg-accent-light"
+                    : "bg-white text-black hover:bg-white/90"
+                }`}
               >
                 Book Now
               </Link>
               <button
                 onClick={toggleMenu}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black text-white shadow-lg shadow-black/15 transition-all duration-300 hover:scale-105 hover:bg-gray-800 lg:hidden"
+                className={`inline-flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-105 lg:hidden ${
+                  isScrolled
+                    ? "bg-accent text-white shadow-lg shadow-black/15 hover:bg-accent-light"
+                    : "bg-white text-black hover:bg-white/90"
+                }`}
                 aria-label={isOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isOpen}
               >
@@ -100,21 +112,21 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-80 max-w-[85vw] bg-white/95 backdrop-blur-xl border-l border-gray-200 lg:hidden"
+              className="fixed top-0 right-0 bottom-0 z-50 w-80 max-w-[85vw] glass-card border-l border-white/20 lg:hidden"
             >
               <div className="flex h-full flex-col">
                 <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4 sm:px-6">
                   <div className="relative h-10 w-28 sm:h-12 sm:w-32">
                     <Image
-                      src="/logo-white.png"
+                      src="/logo.png"
                       alt="Wed Filmer"
                       fill
-                      className="object-contain"
+                      className="object-contain invert brightness-0"
                     />
                   </div>
                   <button
                     onClick={closeMenu}
-                    className="rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-black"
+                    className="rounded-full p-2 text-muted transition-colors hover:bg-black/5 hover:text-accent"
                     aria-label="Close menu"
                   >
                     <X size={20} />
@@ -133,7 +145,7 @@ export function Navbar() {
                         <Link
                           href={link.href}
                           onClick={closeMenu}
-                          className="block rounded-xl px-4 py-3 text-base font-medium text-gray-700 transition-all duration-300 hover:bg-gray-50 hover:text-black"
+                          className="block rounded-xl px-4 py-3 text-base font-medium text-text transition-all duration-300 hover:bg-black/5 hover:text-accent"
                         >
                           {link.label}
                         </Link>
@@ -146,7 +158,7 @@ export function Navbar() {
                   <Link
                     href="/contact"
                     onClick={closeMenu}
-                    className="block w-full rounded-full bg-black px-6 py-3 text-center font-semibold text-white transition-all duration-300 hover:bg-gray-800"
+                    className="block w-full rounded-full bg-accent px-6 py-3 text-center font-semibold text-white transition-all duration-300 hover:bg-accent-light"
                   >
                     Book a Session
                   </Link>

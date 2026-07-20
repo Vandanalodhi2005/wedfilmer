@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import { StickyContactButtons } from "@/components/StickyContactButtons";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -90,6 +91,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <StickyContactButtons />
+        <ScrollToTop />
       </body>
     </html>
   );

@@ -14,25 +14,29 @@ export function TrustSection() {
       <div className="section-divider mb-16 md:mb-20" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 gap-y-12 md:grid-cols-4 md:gap-y-0 relative">
           {STATS.map((stat, i) => {
             const Icon = icons[i];
             return (
               <ScrollReveal key={stat.label} delay={i * 0.1}>
-                <div className="glass-card glass-card-hover p-6 md:p-8 text-center group">
-                  <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300">
-                    <Icon size={22} className="text-accent" />
+                <div className="relative text-center px-4 group">
+                  <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-accent/5 text-accent transition-all duration-500 group-hover:scale-110 group-hover:bg-accent/10">
+                    <Icon size={24} strokeWidth={1.5} />
                   </div>
-                  <div className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-accent mb-2">
+                  <div className="mb-3 text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-text transition-colors duration-300 group-hover:text-accent">
                     <AnimatedCounter
                       value={stat.value}
                       suffix={stat.suffix}
                       decimals={"decimals" in stat ? stat.decimals : 0}
                     />
                   </div>
-                  <p className="text-sm sm:text-base text-muted font-medium">
+                  <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-muted">
                     {stat.label}
                   </p>
+                  {/* Vertical Divider for desktop (not on last item) */}
+                  {i !== STATS.length - 1 && (
+                    <div className="hidden md:block absolute right-0 top-1/2 h-2/3 w-[1px] -translate-y-1/2 bg-accent/15" />
+                  )}
                 </div>
               </ScrollReveal>
             );
