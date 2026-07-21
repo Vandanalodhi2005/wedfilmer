@@ -95,21 +95,29 @@
   background: linear-gradient(to left, var(--color-primary), transparent);
 }
 
+/* Ensure each track container is overflow hidden */
+.ms-track-container {
+  width: 100%;
+  overflow: hidden;
+}
+
 .ms-track {
-  display: flex;
+  display: inline-flex;
   gap: 8px;
   padding: 8px 0;
+  white-space: nowrap;
   width: max-content;
-  animation: msScroll 35s linear infinite;
+  animation: msScroll 60s linear infinite !important;
   will-change: transform;
 }
 
 .ms-track-2 {
-  display: flex;
+  display: inline-flex;
   gap: 8px;
   padding: 0 0 8px;
+  white-space: nowrap;
   width: max-content;
-  animation: msScroll2 40s linear infinite;
+  animation: msScroll2 70s linear infinite !important;
   will-change: transform;
 }
 
@@ -182,7 +190,7 @@
 }
 
 .portfolio-slider-track {
-  animation: portfolio-slider 30s linear infinite;
+  animation: portfolio-slider 120s linear infinite;
   will-change: transform;
 }
 
