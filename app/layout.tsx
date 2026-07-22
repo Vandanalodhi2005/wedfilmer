@@ -37,6 +37,9 @@ export const metadata: Metadata = {
   creator: "Wed Filmer",
   publisher: "Wed Filmer",
   metadataBase: new URL("https://wedfilmer.com"),
+  icons: {
+    icon: "/favicon.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
