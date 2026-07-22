@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     url: "https://wedfilmer.com",
     title: "Wed Filmer - Premium Wedding & Event Photography",
     description:
-      "Professional wedding photography that transforms memories into timeless stories. 500+ events covered, 8+ years experience.",
+      "Professional wedding photography that transforms memories into timeless stories. 350+ events covered, 11+ years experience.",
     siteName: "Wed Filmer",
     images: [
       {
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Wed Filmer - Premium Wedding & Event Photography",
     description:
-      "Professional wedding photography that transforms memories into timeless stories. 500+ events covered, 8+ years experience.",
+      "Professional wedding photography that transforms memories into timeless stories. 350+ events covered, 11+ years experience.",
     images: ["/og-image.jpg"],
     creator: "@wedfilmer",
   },

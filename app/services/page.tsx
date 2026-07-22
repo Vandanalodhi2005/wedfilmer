@@ -23,7 +23,7 @@ export default function ServicesPage() {
       <main>
         <PageHero 
           title="Our Services" 
-          subtitle="What We Offer" 
+          subtitle="Signature Services" 
           imageSrc="https://suvoweddings.com/wedding-photographer-siliguri-bengali-couple-mandap-suvo-choudhury.jpg"
         />
         

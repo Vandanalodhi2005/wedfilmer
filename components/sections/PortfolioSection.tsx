@@ -129,7 +129,7 @@ export function PortfolioSection() {
             className="mb-10 text-center"
           >
             <p className="portfolio-masonry-label">Our Portfolio</p>
-            <h2 className="portfolio-masonry-title">Featured Work</h2>
+            <h2 className="portfolio-masonry-title">Signature Stories</h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-muted">
               A polished collection of timeless moments, presented in their true form and emotion.
             </p>

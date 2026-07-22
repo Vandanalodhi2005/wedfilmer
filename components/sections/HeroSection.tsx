@@ -90,7 +90,7 @@ export function HeroSection() {
             >
               <span className="relative z-10 flex items-center gap-2">
                 <Calendar size={18} />
-                Book Your Session
+                Let's tell your Story
                 <ArrowRight
                   size={18}
                   className="group-hover:translate-x-1 transition-transform"

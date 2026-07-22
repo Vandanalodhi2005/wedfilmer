@@ -27,10 +27,9 @@ export const NAV_LINKS = [
 
 // Stats
 export const STATS = [
-  { value: 500, suffix: "+", label: "Events Covered" },
-  { value: 1000, suffix: "+", label: "Happy Clients" },
-  { value: 8, suffix: "+", label: "Years Experience" },
-  { value: 4.9, suffix: "", label: "Client Rating", decimals: 1 },
+  { value: 350, suffix: "+", label: "Events Covered" },
+  { value: 11, suffix: "+", label: "Years Experience" },
+  { value: 4.8, suffix: "★", label: "Client Rating", decimals: 1 },
 ] as const;
 
 // Services

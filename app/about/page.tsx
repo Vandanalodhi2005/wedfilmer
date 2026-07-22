@@ -7,7 +7,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About Us - Wed Filmer Photography",
-  description: "Learn about Wed Filmer's journey in wedding photography. With over a decade of experience and 250+ events covered, we capture love stories that last forever.",
+  description: "Learn about Wed Filmer's journey in wedding photography. With over a decade of experience and 350+ events covered, we capture love stories that last forever.",
   openGraph: {
     title: "About Us - Wed Filmer Photography",
     description: "Learn about Wed Filmer's journey in wedding photography.",
@@ -21,7 +21,7 @@ export default function AboutPage() {
       <Navbar />
       <main>
         <PageHero 
-          title="Our Journey" 
+          title="About Us" 
           subtitle="Behind The Lens" 
           imageSrc="https://suvoweddings.com/pre-wedding-beach-couple-suvo-weddings.jpg"
         />

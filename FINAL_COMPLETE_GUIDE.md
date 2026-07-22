@@ -338,7 +338,7 @@ Tested and perfect on:
 ## 🎯 **Conversion Optimization**
 
 ### CTAs Throughout:
-1. Hero: "Book Your Session" + "View Our Work"
+1. Hero: "Let's tell your Story" + "View Our Work"
 2. Services: "Learn More" on each card
 3. Portfolio: "View Full Gallery"
 4. Testimonials: Social proof
@@ -347,7 +347,7 @@ Tested and perfect on:
 7. Footer: Quick links
 
 ### Trust Signals:
-- 500+ Events Covered
+- 350+ Events Covered
 - 1000+ Happy Clients
 - 8+ Years Experience
 - 4.9★ Rating

@@ -205,18 +205,21 @@
 }
 
 /* ── Base Styles ── */
-html {
+html, body, section, main {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
-}
-
-body {
   background: var(--color-primary);
   color: var(--color-text);
   font-family: var(--font-body);
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+section {
+  overflow-x: hidden;
 }
 
 /* ── Custom Scrollbar ── */
@@ -292,6 +295,7 @@ body {
 }
 
 /* ── Accent gradient border ── */
+
 .gold-border {
   position: relative;
 }

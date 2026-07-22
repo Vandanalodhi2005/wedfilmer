@@ -64,7 +64,7 @@ export function ServicesSection() {
 
       <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 md:mb-16">
-          <SectionHeading title="What We Offer" subtitle="Our Services" />
+          <SectionHeading title="Signature Services" subtitle="Our Services" />
         </div>
 
         {/* Carousel Container */}

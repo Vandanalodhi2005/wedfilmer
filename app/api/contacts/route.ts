@@ -22,13 +22,16 @@ export async function GET(request: NextRequest) {
   }
 }
 
+
 export async function POST(request: NextRequest) {
   try {
     await connectToDatabase();
     const body = await request.json();
     const { name, email, phone, message } = body;
 
-    // 1. Save to database
+    console.log('Received contact form submission:', { name, email, phone, message });
+
+    // 1. Save to database first (critical)
     const newContact = new Contact({
       name,
       email,
@@ -37,47 +40,66 @@ export async function POST(request: NextRequest) {
     });
 
     await newContact.save();
+    console.log('Contact saved to database successfully');
 
-    // 2. Send email notification using nodemailer
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: process.env.SMTP_SECURE === 'true',
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+    // 2. Try sending email (non-blocking, don't fail the whole request if email fails)
+    try {
+      // Check if all SMTP variables are present
+      const { SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS } = process.env;
+      if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) {
+        console.warn('SMTP configuration missing, skipping email send');
+      } else {
+        console.log('Creating SMTP transporter with host:', SMTP_HOST, 'port:', SMTP_PORT);
+        
+        const transporter = nodemailer.createTransport({
+          host: SMTP_HOST,
+          port: Number(SMTP_PORT),
+          secure: SMTP_SECURE === 'true',
+          auth: {
+            user: SMTP_USER,
+            pass: SMTP_PASS,
+          },
+        });
 
-    // Email content
-    const mailOptions = {
-      from: process.env.SMTP_USER,
-      to: 'info@wedfilmer.in',
-      subject: `New Contact Form Submission from ${name}`,
-      text: `
+        // Verify transporter connection
+        await transporter.verify();
+        console.log('SMTP transporter verified successfully');
+
+        // Email content with HTML content
+        const mailOptions = {
+          from: SMTP_USER,
+          to: 'info@wedfilmer.in',
+          subject: `New Contact Form Submission from ${name}`,
+          text: `
 You have received a new contact form submission!
 
 Name: ${name}
 Email: ${email}
 Phone: ${phone}
 Message: ${message}
-      `,
-      html: `
-        <h3>New Contact Form Submission</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Message:</strong> ${message}</p>
-      `,
-    };
+          `,
+          html: `
+            <h3>New Contact Form Submission</h3>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Message:</strong> ${message}</p>
+          `,
+        };
 
-    // Send email
-    await transporter.sendMail(mailOptions);
+        console.log('Sending email with options:', { from: mailOptions.from, to: mailOptions.to, subject: mailOptions.subject });
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent successfully:', info.response);
+      }
+    } catch (emailError) {
+      console.error('Email sending failed with details:', emailError);
+      // Don't rethrow - just log, since we already saved contact to DB
+    }
 
     return NextResponse.json({ success: true, data: newContact });
   } catch (error) {
-    console.error('Error:', error);
-    return NextResponse.json({ success: false, message: 'Failed to send message' }, { status: 500 });
+    console.error('Error saving contact:', error);
+    return NextResponse.json({ success: false, message: 'Failed to save message' }, { status: 500 });
   }
 }
 

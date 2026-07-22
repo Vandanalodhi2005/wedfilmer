@@ -5,17 +5,9 @@ import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Camera, Award, Heart, Aperture } from "lucide-react";
 
-const milestones = [
-  { year: "2015", title: "Founded", desc: "We started our journey capturing timeless moments." },
-  { year: "2018", title: "Services Expanded", desc: "Specializing in cinematic videography and pre-wedding films." },
-  { year: "2020", title: "Global Reach", desc: "Extended services to major destinations worldwide." },
-  { year: "2023", title: "Elite Collective", desc: "Curated a collective of visionary photographers and cinematographers." },
-  { year: "2026", title: "250+ Events", desc: "Successfully covered over 250 premium Weddings & Events globally." },
-];
-
 const highlights = [
   { icon: Camera, label: "Since 2015", desc: "Professional Mastery" },
-  { icon: Heart, label: "250+", desc: "Premium Events Covered" },
+  { icon: Heart, label: "350+", desc: "Premium Events Covered" },
   { icon: Award, label: "Elite Team", desc: "Award-Winning Cinematographers" },
   { icon: Aperture, label: "Global Reach", desc: "Destination Weddings Worldwide" },
 ];
@@ -44,7 +36,7 @@ export function AboutSection() {
               </div>
 
               <div className="absolute -bottom-6 -right-6 md:right-[-1.5rem] glass-card p-4 md:p-5 z-10 rounded-2xl">
-                <div className="text-3xl font-heading font-bold text-accent">250+</div>
+                <div className="text-3xl font-heading font-bold text-accent">350+</div>
                 <div className="text-sm text-muted">Beautiful weddings captured</div>
               </div>
             </div>
@@ -83,87 +75,6 @@ export function AboutSection() {
               </div>
             </div>
           </ScrollReveal>
-        </div>
-
-        {/* Timeline */}
-        <div className="mt-16 md:mt-20 overflow-hidden">
-          <motion.h3
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-center font-heading text-2xl md:text-3xl font-bold text-text mb-14 md:mb-20"
-          >
-            Our Journey
-          </motion.h3>
-
-          {/* Horizontal Timeline */}
-          <div className="relative">
-            {/* Horizontal center line */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="absolute left-0 right-0 top-1/2 h-[2px] bg-gradient-to-r from-transparent via-accent/30 to-transparent origin-left"
-            />
-
-            <div className="flex justify-between items-center relative px-2 md:px-4">
-              {milestones.map((m, i) => {
-                const isTop = i % 2 === 0;
-                return (
-                  <motion.div
-                    key={m.year}
-                    initial={{
-                      opacity: 0,
-                      y: isTop ? -60 : 60,
-                      scale: 0.85,
-                    }}
-                    whileInView={{
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                    }}
-                    viewport={{ once: true, margin: "-30px" }}
-                    transition={{
-                      duration: 0.6,
-                      delay: i * 0.15,
-                      ease: [0.25, 0.46, 0.45, 0.94],
-                    }}
-                    className={`relative flex flex-col items-center flex-1 ${
-                      isTop ? "flex-col" : "flex-col-reverse"
-                    }`}
-                  >
-                    {/* Card */}
-                    <div
-                      className={`glass-card p-3 md:p-4 text-center w-full max-w-[140px] md:max-w-[160px] group hover:-translate-y-1 transition-all duration-500 ${
-                        isTop ? "mb-6" : "mt-6"
-                      }`}
-                    >
-                      <p className="font-heading text-[10px] md:text-xs font-bold text-accent tracking-wider mb-1">
-                        {m.year}
-                      </p>
-                      <h4 className="font-heading text-xs md:text-sm font-semibold text-text mb-1 group-hover:text-accent transition-colors">
-                        {m.title}
-                      </h4>
-                      <p className="text-muted text-[10px] md:text-xs leading-relaxed hidden sm:block">
-                        {m.desc}
-                      </p>
-                    </div>
-
-                    {/* Connector line + dot */}
-                    <div className={`flex flex-col items-center ${isTop ? "" : "flex-col-reverse"}`}>
-                      <div className="w-[1px] h-6 bg-accent/20" />
-                      <div className="relative">
-                        <div className="w-3 h-3 rounded-full bg-accent border-2 border-primary z-10 relative" />
-                        <div className="absolute inset-0 w-3 h-3 rounded-full bg-accent/40 animate-ping" />
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
         </div>
       </div>
     </section>

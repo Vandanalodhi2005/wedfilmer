@@ -30,16 +30,16 @@ export function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b overflow-x-hidden ${
           isScrolled
             ? "glass-card border-white/20 shadow-lg shadow-black/5"
             : "bg-transparent border-transparent"
         }`}
       >
         <nav className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8" aria-label="Main navigation">
-          <div className="flex h-16 items-center justify-between sm:h-20">
+          <div className="flex h-16 items-center justify-between sm:h-20 w-full">
             <Link href="/" className="group flex items-center" aria-label="Wed Filmer Home">
-              <div className="relative h-10 w-32 transition-all duration-300 sm:h-12 sm:w-40 lg:h-14 lg:w-44">
+              <div className="relative h-12 w-36 transition-all duration-300 sm:h-12 sm:w-40 lg:h-14 lg:w-44">
                 <Image
                   src="/logo-white.png"
                   alt="Wed Filmer"

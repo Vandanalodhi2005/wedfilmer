@@ -8,7 +8,8 @@ import { verifyToken } from '@/lib/auth';
 // Allow longer timeout for large file uploads
 export const maxDuration = 60;
 
-// Increase body size limit to handle large base64 image uploads (default is 4MB)
+// Increase body size limit to handle large base64 image uploads (default is 4MB) 
+// 20MB is a common limit for base64 encoding
 export const config = {
   api: {
     bodyParser: {
@@ -86,7 +87,7 @@ export async function POST(request: NextRequest) {
     if (error instanceof Error) {
       console.error('Error stack:', error.stack);
     }
-    // Serialize non-Error objects (e.g., Cloudinary SDK errors) so we get readable messages
+    // Serialize non-Error objects (e.g., Cloudinary SDK errors) so we get readable messages with stack trace 
     const errorMessage =
       error instanceof Error
         ? error.message

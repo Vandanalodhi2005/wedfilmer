@@ -5,7 +5,7 @@ import cloudinary from '@/lib/cloudinary';
 import Video from '@/models/Video';
 import { verifyToken } from '@/lib/auth';
 
-// Allow longer timeout for large video uploads
+// Allow longer timeout for large video uploads (default is 60 seconds)
 export const maxDuration = 120;
 
 export async function GET(request: NextRequest) {

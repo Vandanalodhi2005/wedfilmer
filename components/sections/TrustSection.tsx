@@ -3,9 +3,9 @@
 import { STATS } from "@/lib/constants";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { Camera, Users, Clock, Star } from "lucide-react";
+import { Camera, Clock, Star } from "lucide-react";
 
-const icons = [Camera, Users, Clock, Star];
+const icons = [Camera, Clock, Star];
 
 export function TrustSection() {
   return (
@@ -14,7 +14,7 @@ export function TrustSection() {
       <div className="section-divider mb-16 md:mb-20" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-y-8 md:grid-cols-4 md:gap-y-0 relative">
+        <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-3 gap-x-8 md:gap-y-0 relative">
           {STATS.map((stat, i) => {
             const Icon = icons[i];
             return (
@@ -35,7 +35,7 @@ export function TrustSection() {
                   </p>
                   {/* Vertical Divider for desktop (not on last item) */}
                   {i !== STATS.length - 1 && (
-                    <div className="hidden md:block absolute right-0 top-1/2 h-2/3 w-[1px] -translate-y-1/2 bg-accent/15" />
+                    <div className="hidden sm:block absolute right-0 top-1/2 h-2/3 w-[1px] -translate-y-1/2 bg-accent/15" />
                   )}
                 </div>
               </ScrollReveal>
