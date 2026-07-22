@@ -27,15 +27,16 @@ export async function POST(request: NextRequest) {
   try {
     await connectToDatabase();
     const body = await request.json();
-    const { name, email, phone, message } = body;
+    const { name, email, phone, eventDate, message } = body;
 
-    console.log('Received contact form submission:', { name, email, phone, message });
+    console.log('Received contact form submission:', { name, email, phone, eventDate, message });
 
     // 1. Save to database first (critical)
     const newContact = new Contact({
       name,
       email,
       phone,
+      eventDate,
       message,
     });
 
@@ -45,11 +46,20 @@ export async function POST(request: NextRequest) {
     // 2. Try sending email (non-blocking, don't fail the whole request if email fails)
     try {
       // Check if all SMTP variables are present
-      const { SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS } = process.env;
+      const { SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS, NODE_ENV } = process.env;
+      console.log('SMTP env vars check:', {
+        hasSMTP_HOST: !!SMTP_HOST,
+        hasSMTP_PORT: !!SMTP_PORT,
+        hasSMTP_USER: !!SMTP_USER,
+        hasSMTP_PASS: !!SMTP_PASS,
+        SMTP_SECURE,
+        NODE_ENV
+      });
+
       if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) {
         console.warn('SMTP configuration missing, skipping email send');
       } else {
-        console.log('Creating SMTP transporter with host:', SMTP_HOST, 'port:', SMTP_PORT);
+        console.log('Creating SMTP transporter with host:', SMTP_HOST, 'port:', SMTP_PORT, 'secure:', SMTP_SECURE === 'true');
         
         const transporter = nodemailer.createTransport({
           host: SMTP_HOST,
@@ -61,9 +71,13 @@ export async function POST(request: NextRequest) {
           },
         });
 
-        // Verify transporter connection
-        await transporter.verify();
-        console.log('SMTP transporter verified successfully');
+        // Try to verify transporter, but if verification fails, still try to send email
+        try {
+          await transporter.verify();
+          console.log('SMTP transporter verified successfully');
+        } catch (verifyError) {
+          console.warn('SMTP transporter verification failed, but still trying to send email:', verifyError);
+        }
 
         // Email content with HTML content
         const mailOptions = {
@@ -76,6 +90,7 @@ You have received a new contact form submission!
 Name: ${name}
 Email: ${email}
 Phone: ${phone}
+Event Date: ${eventDate || 'Not provided'}
 Message: ${message}
           `,
           html: `
@@ -83,6 +98,7 @@ Message: ${message}
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Event Date:</strong> ${eventDate || 'Not provided'}</p>
             <p><strong>Message:</strong> ${message}</p>
           `,
         };
